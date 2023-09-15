@@ -1,0 +1,331 @@
+﻿
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: arial;
+        background-image: url('/AdminLte/dist/img/Fondo10.png');
+    }
+
+    .form-login {
+        width: 500px;
+        height: 400px;
+        background: #b5d4a0;
+        margin-left: 20px;
+        margin-top: 180px;
+        box-shadow: 7px 13px 37px #000;
+        padding: 1px 30px;
+        border-top: 4px solid #5c478a;
+        color: white;
+    }
+
+    .imagenLogo {
+        width: 450px;
+        height: 180px;
+        margin-left: 2px;
+        margin-top: 0px;
+        box-shadow: #000;
+        padding: 20px 30px;
+    }
+
+    .form-login h5 {
+        margin: 0;
+        text-align: center;
+        height: 40px;
+        margin-bottom: 30px;
+        border-bottom: 1px solid;
+        font-size: 20px;
+    }
+
+    .controls {
+        width: 100%;
+        border: 1px solid #5c478a;
+        margin-bottom: 15px;
+        padding: 11px 10px;
+        background: white;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .buttons {
+        width: 100%;
+        height: 40px;
+        background: #5c478a;
+        border: none;
+        color: white;
+        margin-bottom: 16px;
+    }
+
+    .btn-buttons {
+        width: 100%;
+        height: 40px;
+        background: #5c478a;
+        border: none;
+        color: white;
+        margin-bottom: 16px;
+    }
+
+    .form-login p {
+        height: 40px;
+        text-align: center;
+        border-bottom: 1px solid;
+    }
+
+    .form-login a {
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+        .form-login a:hover {
+            text-decoration: underline;
+        }
+
+    .container {
+        display: flex;
+        margin-left: 2px !important;
+    }
+    .imagen {
+        width: 970px;
+        height: 650px;
+        margin-left: 0px !important;
+        margin-top: 50px;
+        box-shadow: -1px 3px 15px 0px rgba(0,0,0,0.81);
+    }
+</style>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Formulario Login</title>
+    <link rel="stylesheet" href="style.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/AdminLte/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="~/AdminLte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="~/AdminLte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="~/AdminLte/plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/AdminLte/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="~/AdminLte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="~/AdminLte/plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/AdminLte/plugins/summernote/summernote-bs4.min.css">
+    <link href="~/AdminLte/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div>
+            <img class="imagen" src="~/AdminLte/dist/img/iaMan.png" @*height="10" width="10"*@>
+        </div>
+
+        <div>
+            <section class="form-login">
+                <img class="imagenLogo" src="~/AdminLte/dist/img/logo-buho_horiz.gif"style="width: 90%; height: 50%" >
+                @*<h5>Licitaciones</h5>*@
+                <input class="controls" type="text" name="cuit" placeholder="Cuit" id="cuit">
+                <input class="controls" type="password" name="contrasena" value="" placeholder="Contraseña" id="password">
+                <input class="buttons" type="submit" value="Ingresar" id="Ingresar">
+                @*<a href="#" role="button" class="btn buttons btn-block" id="Ingresar" style="margin-left:3%;">Ingresar</a>*@
+                @*<p><a href="#">¿Olvidastes tu Contraseña?</a></p>*@
+
+            </section>
+        </div>
+    </div>
+        <!-- ./wrapper -->
+        <!-- jQuery -->
+        <script src="~/AdminLte/plugins/jquery/jquery.min.js"></script>
+        <!-- jQuery UI 1.11.4 -->
+        <script src="~/AdminLte/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <script>
+            $.widget.bridge('uibutton', $.ui.button)
+        </script>
+        <!-- Bootstrap 4 -->
+        <script src="~/AdminLte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- ChartJS -->
+        <script src="~/AdminLte/plugins/chart.js/Chart.min.js"></script>
+        <!-- Sparkline -->
+        <script src="~/AdminLte/plugins/sparklines/sparkline.js"></script>
+        <!-- JQVMap -->
+        <script src="~/AdminLte/plugins/jqvmap/jquery.vmap.min.js"></script>
+        <script src="~/AdminLte/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+        <!-- jQuery Knob Chart -->
+        <script src="~/AdminLte/plugins/jquery-knob/jquery.knob.min.js"></script>
+        <!-- daterangepicker -->
+        <script src="~/AdminLte/plugins/moment/moment.min.js"></script>
+        <script src="~/AdminLte/plugins/daterangepicker/daterangepicker.js"></script>
+        <!-- Tempusdominus Bootstrap 4 -->
+        <script src="~/AdminLte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+        <!-- Summernote -->
+        <script src="~/AdminLte/plugins/summernote/summernote-bs4.min.js"></script>
+        <!-- overlayScrollbars -->
+        <script src="~/AdminLte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="~/AdminLte/dist/js/adminlte.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="~/AdminLte/dist/js/demo.js"></script>
+        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+        <script src="~/AdminLte/dist/js/pages/dashboard.js"></script>
+
+
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @*@RenderSection("scripts", required: false)*@
+</body>
+</html>
+@section Scripts
+{
+    <!-- Select2 -->
+    <script src="~/AdminLte/plugins/select2/js/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="~/AdminLte/plugins/moment/moment.min.js"></script>
+    <script src="~/AdminLte/plugins/inputmask/jquery.inputmask.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables/jquery.dataTables.min.js"></script>
+    <link href="~/Content/DataTables2/datatables.min.css" rel="stylesheet" />
+
+}
+<script>
+
+    $("#Ingresar").click(function () {        
+        var cuitF = $("#cuit").val();
+        var passwordF = $("#password").val();
+
+        if ($("#cuit").val() == "") {
+            alert("El campo Cuit no puede estar vacío.");
+            $("#cuit").focus();
+        } else {
+            if ($("#password").val() == "") {
+                alert("El campo Contraseña no puede estar vacío.");
+                $("#password").focus();
+            } else {
+                Validar();
+            }
+        }
+    });
+    function Validar() {
+
+        var cuit = $("#cuit").val();
+        var password = $("#password").val();
+        $.ajax({
+            url: '/Api/Login/Validar',
+            type: 'GET',
+            data: {
+                cuit: cuit,
+                password: password
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.esValido == true) {
+                    location.href = '/Licitacion/Licitacion/Empresa';
+                } else {
+                    alert("Usuario o Contraseña incorrecto")
+                }
+                vaciarFormulario();
+
+            },
+            statusCode: {
+                404: function () {
+                    //alert(data);
+                }
+            }
+        });
+    }
+    function vaciarFormulario() {
+        //viatico
+        $('#cuit').val('').change();
+        $('#password').val('').change();
+    }
+    //function Validar() {
+    //    $('#tablaObra').DataTable().destroy();
+
+    //    var url = "/api/Empresa/listarObraEmpresa?";
+    //    url = url + "nroExpediente=" + $('#txtNroExpediente').val();
+    //    url = url + "&nombreObra=" + $('#txtNombreObra').val();
+    //    url = url + "&fechaPub=" + $('#txtFechaPublic').val();
+    //    url = url + "&idOrganismo=" + $('#selectOrganismo').val();
+    //    url = url + "&idEmpresa=" + 8;
+    //    url = url + "&idFavoritos=" + $('#selectFavoritos').val();
+
+    //    cargarTabla(url);
+    //};
+
+    //function Validar() {
+        
+    //    var cuit = $("#cuit").val();
+    //    var password = $("#password").val();
+
+    //    $.ajax({
+    //        url: '/Api/Login/Validar',
+    //        type: 'GET',
+    //        data: {
+    //            cuit: cuit,
+    //            password: password
+    //        },
+    //        dataType: 'json',
+    //        success: function (data) {
+    //            if (data > 0) {
+    //                var urlLogin = '/Home/Verificar?id=' + data;
+    //                window.location.href = urlLogin;
+    //            } else if (data == -1) {
+    //                alert("Su usuario se encuentra inhabilitado, para acceder comuníquese con el administrador de sistema")
+
+    //            }
+    //            else {
+    //                alert("Usuario o Contraseña incorrecto")
+    //            }
+    //        },
+    //        //statusCode: {
+    //        //    404: function () {
+    //        //        alert(data);
+    //        //    }
+    //        //}
+    //    });
+    //}
+      /*  });*/
+
+    //$("#Ingresar").click(function () {
+    //    alert("hola de nuevo")
+    //    var cuitF = $("#cuit").val();
+    //    var passwordF = $("#password").val();
+
+    //    $.ajax({
+    //        url: '/api/Login/Validar',
+    //        type: 'GET',
+    //        data: {
+    //            cuit: cuitF,
+    //            password: passwordF
+    //        },
+    //        dataType: 'json',
+    //        success: function (data) {
+
+
+    //        },
+    //        statusCode: {
+    //            404: function () {
+    //                //alert(data);
+    //            }
+    //        }
+    //    });
+
+    //});
+</script>

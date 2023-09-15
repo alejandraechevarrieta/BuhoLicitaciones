@@ -1,0 +1,972 @@
+﻿<title>Listado Licitaciones</title>
+
+<!-- Select2 -->
+<link rel="stylesheet" href="~/AdminLte/plugins/select2/css/select2.min.css">
+<link rel="stylesheet" href="~/AdminLte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+
+
+@{
+    ViewBag.Title = "Index";
+    var idObras = Session["idObras"];
+}
+<style>
+    .dataTables_length {
+        display: none !important;
+    }
+</style>
+
+<div class="container-fluid" style="font-size: smaller !important;">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item active">Licitaciones</li>
+    </ol>
+
+    <div class="modal modal-default" id="modal-success" style="display: none!important;">
+        <div class="modal-dialog">
+            <div class="modal-content bg-success">
+                <div class="modal-body">
+                    <p>Los datos fueron guardados</p>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal modal-default" id="modal-popup-Obra" style="display: none!important; margin-top: 0%;">
+        @Html.Partial("_detalleObra")
+    </div>
+    <div class="modal modal-default" id="modal-popup-Acta" style="display: none!important; margin-top: 0%;">
+        @Html.Partial("_GenerarActa")
+    </div>
+    <div class="row">
+        <div class="col-2 form-group">
+            <label>Expediente</label>
+            <input type="text"
+                   class="form-control"
+                   id="txtNroExpediente"
+                   style="font-size: smaller !important;"
+                   placeholder="Nro Expediente">
+        </div>
+        <div class="col-2 form-group">
+            <label>Obra</label>
+            <input type="text"
+                   class="form-control"
+                   id="txtNombreObra"
+                   style="font-size: smaller !important;"
+                   placeholder="Nombre de Obra">
+        </div>
+        <div class="col-2 form-group">
+            <label for="exampleInputEmail1">Nro Obra</label>
+            <input type="text"
+                   class="form-control"
+                   id="txtNroObra"
+                   style="font-size: smaller !important;"
+                   placeholder="Nro de Obra">
+        </div>
+        <div class="col-2 form-group">
+            <label for="exampleInputEmail1">Publicación</label>
+            <input type="date"
+                   class="form-control pull-left ui-datepicker"
+                   style="font-size: smaller !important;"
+                   id="txtFechaPublic">
+        </div>
+        <div class="col-2 form-group">
+            <label>Organismo</label>
+            <select id="selectOrganismo"
+                    class="form-control select2bs4">
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1">
+            <button type="button"
+                    class="btn btn-block btn-success"
+                    id="btnBuscar"
+                    style="font-size:smaller !important">
+                Buscar
+            </button>
+        </div>
+        <div class="col-1">
+            <button type="button"
+                    class="btn btn-block btn-secondary"
+                    id="btnExportar"
+                    style="font-size:smaller !important">
+                Exportar
+            </button>
+        </div>
+    </div>
+    <div class="row" style="margin-top:1%;">
+        <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-info" style="background-color: #00c0ef !important; font-size: smaller !important;">
+                <div class="inner">
+                    <label id="qAPublicar" style="font-size:x-large!important">0</label>
+                    <p style="font-size: small !important;">A publicar</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <p class="small-box-footer" onclick="filtrarEstado(5)" style="cursor: pointer;">
+                    Más Info <i class="fas fa-arrow-circle-right"></i>
+                </p>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-success" style="background-color: #00a65a !important; font-size: smaller !important;">
+                <div class="inner">
+                    <label id="qPublicada" style="font-size:x-large!important">0</label>
+
+                    <p style="font-size: small !important;">Licitación Publicada</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <p class="small-box-footer" onclick="filtrarEstado(6)" style="cursor: pointer;">
+                    Más Info <i class="fas fa-arrow-circle-right"></i>
+                </p>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-warning" style="background-color: #5f2571 !important; font-size: smaller !important;">
+                <div class="inner">
+                    <label id="qAbierta" style="font-size: x-large !important; color: white !important;">0</label>
+
+                    <p style="color: white !important;font-size: small !important; color: white!important;">Ofertas abiertas</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <p class="small-box-footer" onclick="filtrarEstado(7)" style="cursor: pointer;">
+                    Más Info <i class="fas fa-arrow-circle-right"></i>
+                </p>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-danger" style="background-color: coral !important; font-size: smaller !important;">
+                <div class="inner">
+                    <label id="qDesierta" style="font-size:x-large!important">0</label>
+
+                    <p style="font-size: small !important;">Licitación Desierta</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-skull-crossbones"></i>
+                </div>
+                <p class="small-box-footer" onclick="filtrarEstado(17)" style="cursor: pointer;">
+                    Más Info <i class="fas fa-arrow-circle-right"></i>
+                </p>
+            </div>
+        </div>
+        <!-- ./col -->
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-info" style="background-color: chocolate !important;">
+                <div class="inner">
+                    <label id="qFracasada" style="font-size:x-large!important">0</label>
+
+                    <p style="font-size: small !important;">Licitación Fracasada</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-scroll"></i>
+                </div>
+                <p class="small-box-footer" onclick="filtrarEstado(16)" style="cursor: pointer;">
+                    Más Info <i class="fas fa-arrow-circle-right"></i>
+                </p>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-success" style="background-color: #f39c12 !important;">
+                <div class="inner">
+                    <label id="qPreAdjudicada" style="font-size:x-large!important">0</label>
+
+                    <p style="font-size: small !important;">Pre-Adjudicada</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <p class="small-box-footer" onclick="filtrarEstado(15)" style="cursor: pointer;">
+                    Más Info <i class="fas fa-arrow-circle-right"></i>
+                </p>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-warning" style="background-color: #8fbc8f !important;">
+                <div class="inner">
+                    <label id="qAdjudicada" style="font-size:x-large!important; color: white !important;">0</label>
+
+                    <p style="color: white !important; font-size: small !important;">Adjudicada</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-pen-square"></i>
+                </div>
+                <p class="small-box-footer" onclick="filtrarEstado(14)" style="cursor: pointer;">
+                    Más Info <i class="fas fa-arrow-circle-right"></i>
+                </p>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-danger" style="background-color: #dd4b39 !important;">
+                <div class="inner">
+                    <label id="qFirmada" style="font-size:x-large!important">0</label>
+
+                    <p style="font-size: small !important;">Contrato Firmado</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-signature"></i>
+                </div>
+                <p class="small-box-footer" onclick="filtrarEstado(8)" style="cursor: pointer;">
+                    Más Info <i class="fas fa-arrow-circle-right"></i>
+                </p>
+            </div>
+        </div>
+        <!-- ./col -->
+    </div>
+
+    <div class="box-header with-border">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="tablaObra" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Nro</th>
+                                    <th class="text-center">Nombre</th>
+                                    <th class="text-center">Expediente</th>
+                                    <th class="text-center">Publicacion</th>
+                                    <th class="text-center">Organismo</th>
+                                    <th class="text-center">Presupuesto Oficial</th>
+                                    <th class="text-center">Etapa</th>
+                                    <th class="text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+</div>
+<div class="modal" id="modalExportar" style="display: none!important; margin-top: 1%;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-md-10 offset-1" style="text-align:center; font-style:inherit">
+                        <b>¿Qué campos desea imprimir?</b>
+                    </div><div></div>
+                    <div class="form-group col-md-10 offset-1">
+                        <div class="checkbox">
+                            <input type="checkbox" id="todosI" onclick="marcarTodos()">
+                            Todos
+                        </div>
+                    </div>
+                    <div class="form-group col-md-10 offset-1">
+                        <div class="checkbox">
+                            <input type="checkbox" id="nombreObraI">
+                            Nombre de Obra
+                        </div>
+                    </div>
+                    <div class="form-group col-md-10 offset-1">
+                        <div class="checkbox">
+                            <input type="checkbox" id="expedienteI">
+                            Expediente
+                        </div>
+                    </div>
+                    <div class="form-group col-md-10 offset-1">
+                        <div class="checkbox">
+                            <input type="checkbox" id="publicacionI">
+                            Fecha Publicación
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-10 offset-1">
+                        <div class="checkbox">
+                            <input type="checkbox" id="organismoI">
+                            Organismo
+                        </div>
+                    </div>
+                    <div class="form-group col-md-10 offset-1">
+                        <div class="checkbox">
+                            <input type="checkbox" id="montoI">
+                            Monto
+                        </div>
+                    </div>
+                    <div class="form-group col-md-10 offset-1">
+                        <div class="checkbox">
+                            <input type="checkbox" id="etapaI">
+                            Etapa
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3" style="margin-left: 20%">
+                        <button type="button"
+                                class="btn btn-block btn-success"
+                                id="expoCerrar"
+                                style="font-size:smaller !important">
+                            Cerrar
+                        </button>
+                    </div>
+                    <div class="col-3" style="margin-left: 5%">
+                        <button type="button"
+                                class="btn btn-block btn-secondary"
+                                id="expoImprimir"
+                                style="font-size:smaller !important">
+                            Exportar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page specific script -->
+
+@section Scripts
+{
+    <!-- Select2 -->
+    <script src="~/AdminLte/plugins/select2/js/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="~/AdminLte/plugins/moment/moment.min.js"></script>
+    <script src="~/AdminLte/plugins/inputmask/jquery.inputmask.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables/jquery.dataTables.min.js"></script>
+    <link href="~/Content/DataTables2/datatables.min.css" rel="stylesheet" />
+    <!-- Summernote -->
+    <link href="~/AdminLte/plugins/summernote/summernote-bs4.min.css" rel="stylesheet" />
+    <script src="~/AdminLte/plugins/summernote/summernote-bs4.min.js"></script>
+
+    <!-- Editor
+    <link href="~/Scripts/Plugin/Editor/bootstrap-wysihtml5/lib/css/prettify.css" rel="stylesheet" />
+    <link href="~/Scripts/Plugin/Editor/bootstrap-wysihtml5/src/bootstrap-wysihtml5.css" rel="stylesheet" />
+    <script src="~/Scripts/Plugin/Editor/bootstrap-wysihtml5/lib/js/wysihtml5-0.3.0.js"></script>
+    <script src="~/Scripts/Plugin/Editor/bootstrap-wysihtml5/lib/js/prettify.js"></script>
+    <script src="~/Scripts/Plugin/Editor/bootstrap-wysihtml5/src/bootstrap-wysihtml5.js"></script>
+    -->
+    <script>
+
+        $('.select2').select2();
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        });
+        //Datemask dd/mm/yyyy
+        $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+        var idEstadoGlobal = 0;
+
+        $(window).on('load', function () {
+            $(document).ready(function () {
+                //$('#txtPopupEncabezado').wysihtml5();
+                //$('#txtPopupOferta2').wysihtml5();
+                //$('#txtPopupCierre').wysihtml5();
+                //$('#txtPopupEncabezado').wysihtml5({
+                //    "stylesheets": false,
+                //    "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+                //    "emphasis": true, //Italics, bold, etc. Default true
+                //    "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+                //    "html": false, //Button which allows you to edit the generated HTML. Default false
+                //    "link": true, //Button to insert a link. Default true
+                //    "image": false, //Button to insert an image. Default true,
+                //    "color": false //Button to change color of font
+                //});
+            });
+            //            $('.content').richText({
+            //  // text formatting
+            //  bold: true,
+            //  italic: true,
+            //  underline: true,
+
+            //  // text alignment
+
+            //  leftAlign: true,
+            //  centerAlign: true,
+            //  rightAlign: true,
+            //  justify: true,
+
+            //  // lists
+            //  ol: true,
+            //  ul: true,
+            //  // title
+            //  heading: true,
+            //  // fonts
+            //  fonts: true,
+            //  fontList: ["Arial",
+            //    "Arial Black",
+            //    "Comic Sans MS",
+            //    "Courier New",
+            //    "Geneva",
+            //    "Georgia",
+            //    "Helvetica",
+            //    "Impact",
+            //    "Lucida Console",
+            //    "Tahoma",
+            //    "Times New Roman",
+            //    "Verdana"
+            //  ],
+            //  fontColor: true,
+            //                fontSize: true,
+
+            //  // uploads
+            //  imageUpload: true,
+            //  fileUpload: true,
+            //  // media
+            //    <a href = "https://www.jqueryscript.net/tags.php?/video/">video</a> Embed: true,
+            //  // link
+            //  urls: true,
+            //  // tables
+            //                table: true,
+
+            //  // code
+            //  removeStyles: true,
+            //                code: true,
+
+            //  // colors
+            //  colors: [],
+            //  // dropdowns
+
+            //  fileHTML: '',
+            //  imageHTML: '',
+
+            //  // translations
+            //  translations: {
+            //    'title': 'Title',
+            //    'white': 'White',
+            //    'black': 'Black',
+            //    'brown': 'Brown',
+            //    'beige': 'Beige',
+            //    'darkBlue': 'Dark Blue',
+            //    'blue': 'Blue',
+            //    'lightBlue': 'Light Blue',
+            //    'darkRed': 'Dark Red',
+            //    'red': 'Red',
+            //    'darkGreen': 'Dark Green',
+            //    'green': 'Green',
+            //    'purple': 'Purple',
+            //    'darkTurquois': 'Dark Turquois',
+            //    'turquois': 'Turquois',
+            //    'darkOrange': 'Dark Orange',
+            //    'orange': 'Orange',
+            //    'yellow': 'Yellow',
+            //    'imageURL': 'Image URL',
+            //    'fileURL': 'File URL',
+            //    'linkText': 'Link text',
+            //    'url': 'URL',
+            //    'size': 'Size',
+            //    'responsive': '<a href="https://www.jqueryscript.net/tags.php?/Responsive/">Responsive</a>',
+            //    'text': 'Text',
+            //    'openIn': 'Open in',
+            //    'sameTab': 'Same tab',
+            //    'newTab': 'New tab',
+            //    'align': 'Align',
+            //    'left': 'Left',
+            //    'justify': 'Justify',
+            //    'center': 'Center',
+            //    'right': 'Right',
+            //    'rows': 'Rows',
+            //    'columns': 'Columns',
+            //    'add': 'Add',
+            //    'pleaseEnterURL': 'Please enter an URL',
+            //    'videoURLnotSupported': 'Video URL not supported',
+            //    'pleaseSelectImage': 'Please select an image',
+            //    'pleaseSelectFile': 'Please select a file',
+            //    'bold': 'Bold',
+            //    'italic': 'Italic',
+            //    'underline': 'Underline',
+            //    'alignLeft': 'Align left',
+            //    'alignCenter': 'Align centered',
+            //    'alignRight': 'Align right',
+            //    'addOrderedList': 'Add ordered list',
+            //    'addUnorderedList': 'Add unordered list',
+            //    'addHeading': 'Add Heading/title',
+            //    'addFont': 'Add font',
+            //    'addFontColor': 'Add font color',
+            //    'addFontSize': 'Add font size',
+            //    'addImage': 'Add image',
+            //    'addVideo': 'Add video',
+            //    'addFile': 'Add file',
+            //    'addURL': 'Add URL',
+            //    'addTable': 'Add table',
+            //    'removeStyles': 'Remove styles',
+            //    'code': 'Show HTML code',
+            //    'undo': 'Undo',
+            //    'redo': 'Redo',
+            //    'close': 'Close'
+
+            //            },
+
+            //  // privacy
+            //  youtubeCookies: false,
+
+            //  // preview
+            //  preview: false,
+            //  // placeholder
+            //  placeholder: '',
+            //  // dev settings
+            //  useSingleQuotes: false,
+            //  height: 0,
+            //  heightPercentage: 0,
+            //  id: "",
+            //  class: "",
+            //  useParagraph: false,
+            //  maxlength: 0,
+            //  useTabForNext: false,
+            //  // callback function after init
+            //  callback: undefined,
+            //});
+
+            //// Summernote
+            //$('#txtPopupEncabezado').summernote({
+            //    height: 200,                 // set editor height
+            //    minHeight: null,             // set minimum height of editor
+            //    maxHeight: null,             // set maximum height of editor
+            //    focus: true                  // set focus to editable area after initializing summernote
+            //});
+            ////$('#txtPopupOferta1').summernote({
+            ////    height: 50,                 // set editor height
+            ////    minHeight: null,             // set minimum height of editor
+            ////    maxHeight: null,             // set maximum height of editor
+            ////});
+            //$('#txtPopupOferta2').summernote({
+            //    height: 200,                 // set editor height
+            //    minHeight: null,             // set minimum height of editor
+            //    maxHeight: null,             // set maximum height of editor
+            //});
+            //$('#txtPopupCierre').summernote({
+            //    height: 200,                 // set editor height
+            //    minHeight: null,             // set minimum height of editor
+            //    maxHeight: null,             // set maximum height of editor
+            //});
+
+
+            setTimeout(function () {
+                configurarInicio();
+            }, 3000);
+
+
+            function configurarInicio() {
+                loadOrganismo($('#selectOrganismo'), true);
+                buscar();
+            };
+
+            function loadOrganismo(control, seleccionar) {
+                var select = control;
+                select.empty();
+
+                if (seleccionar) {
+                    select.append($('<option/>', { value: '0', text: '--Seleccione--' }));
+                }
+
+                var urltmp = "/api/Organismo/Listar";
+                fetch(urltmp, { method: "GET" })
+                    .catch(() => {
+                        alert('Ocurrio un error');
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        $.each(data.replay, function (index, result) {
+                            select.append($('<option/>', {
+                                value: result.id,
+                                text: result.nombre
+                            }));
+                        });
+                    })
+            }
+        });
+
+        function buscar() {
+            $('#tablaObra').DataTable().destroy();
+
+            cargarTarjeta();
+
+            var url = "/api/Licitacion/listarObra?";
+            url = url + "nroExpediente=" + $('#txtNroExpediente').val();
+            url = url + "&nombreObra=" + $('#txtNombreObra').val();
+            url = url + "&fechaPub=" + $('#txtFechaPublic').val();
+            url = url + "&idOrganismo=" + $('#selectOrganismo').val();
+            url = url + "&idEstado=" + 0;
+            url = url + "&nroObra=" + $('#txtNroObra').val();
+
+            cargarTabla(url);
+        };
+
+        function cargarTabla(url) {
+
+            var table = $("#tablaObra").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "stateSave": true,
+                "language": {
+                    "processing": "Procesando"
+                },
+                "scrollY": "500px",
+                "scrollCollapse": true,
+                "ajax": {
+                    "url": url,
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "pageLength": 50,
+                "filter": false,
+                "responsivePriority": 2, //define que columna es la que se estira
+                "data": null,
+                "columns": [
+                    {
+                        "data": "idObra", "name": "Nro", "autoWidth": true,
+                        render: function (data, type, row, meta) {
+                            return "<div style='text-align: left;'>" + data + "</div>"
+                        }
+                    },
+                    {
+                        "data": "nombreObra", "name": "Nombre", "autoWidth": true,
+                        render: function (data, type, row, meta) {
+                            return "<div style='text-align: left;'>" + data + "</div>"
+                        }
+                    },
+                    {
+                        "data": "nroExpedienteString", "name": "Expediente", "autoWidth": true,
+                        render: function (data, type, row, meta) {
+                            return "<div style='text-align: left;'>" + data + "</div>"
+                        }
+                    },
+                    {
+                        "data": "fechaPublicacionString", "name": "Publicacion", "autoWidth": true,
+                        render: function (data, type, row, meta) {
+                            return "<div style='text-align: center;'>" + data + "</div>"
+                        }
+                    },
+                    {
+                        "data": "nombreOrganismoString", "name": "Organismo", "autoWidth": true,
+                        render: function (data, type, row, meta) {
+                            return "<div style='text-align: center;'>" + data + "</div>"
+                        }
+                    },
+                    {
+                        "data": "montoObraString", "name": "Monto", "autoWidth": true,
+                        render: function (data, type, row, meta) {
+                            return "<div style='text-align: center;'>" + data + "</div>"
+                        }
+                    },
+                    {
+                        "data": "nombreEtapa", "name": "Etapa", "autoWidth": true,
+                        render: function (data, type, row, meta) {
+                            if (row.idEtapa == 5) {
+                                return "<div style='text-align: center;'><span class='badge bg-danger' style='background-color: #00c0ef!important;'>" + data + "</span></div>"
+                            }
+                            else {
+                                if (row.idEtapa == 6) {
+                                    return "<div style='text-align: center;'><span class='badge bg-danger' style='background-color: #00a65a!important;'>" + data + "</span></div>"
+                                }
+                                else {
+                                    if (row.idEtapa == 7) {
+                                        return "<div style='text-align: center;'><span class='badge bg-danger' style='background-color: #5f2571!important;'>" + data + "</span></div>"
+                                    }
+                                    else {
+                                        if (row.idEtapa == 8) {
+                                            return "<div style='text-align: center;'><span class='badge bg-danger' style='background-color: #dd4b39!important;'>" + data + "</span></div>"
+                                        }
+                                        else {
+                                            if (row.idEtapa == 14) {
+                                                return "<div style='text-align: center;'><span class='badge bg-danger' style='background-color: #8fbc8f!important;'>" + data + "</span></div>"
+                                            }
+                                            else {
+                                                if (row.idEtapa == 15) {
+                                                    return "<div style='text-align: center;'><span class='badge bg-danger' style='background-color: #f39c12!important;'>" + data + "</span></div>"
+                                                }
+                                                else {
+                                                    if (row.idEtapa == 16) {
+                                                        return "<div style='text-align: center;'><span class='badge bg-danger' style='background-color: chocolate!important;'>" + data + "</span></div>"
+                                                    }
+                                                    else {
+                                                        return "<div style='text-align: center;'><span class='badge bg-danger' style='background-color: coral!important;'>" + data + "</span></div>"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "data": "accion", "name": "Acciones", "autoWidth": true,
+                        render: function (data, type, row, meta) {
+                            if (row.idEtapa != 7) {
+                                return "<div style='text-align: center;'><i class='fas fa-pen' title='Editar' style='text-align: center;cursor:pointer; color: green;' onclick='cargarNroObra(" + row.idObra + ")'></i>&nbsp;&nbsp;<i class='fas fa-file-pdf' title='Descargar Ficha' style='text-align: center;cursor:pointer; color: coral;' onclick='imprimirFicha(" + row.idObra + ")'></i></div>"
+                            }
+                            else {
+                                return "<div style='text-align: center;'><i class='fas fa-pen' title='Editar' style='text-align: center;cursor:pointer; color: green;' onclick='cargarNroObra(" + row.idObra + ")'></i>&nbsp;&nbsp;<i class='fas fa-file-pdf' title='Descargar Ficha' style='text-align: center;cursor:pointer; color: coral;' onclick='imprimirFicha(" + row.idObra + ")'></i>&nbsp;&nbsp;<i class='fa fa-flag-checkered' title='Generar Acta' style='text-align: center;cursor:pointer; color: #5f2571;' onclick='generarActa(" + row.idObra + ")'></i></div>"
+                            }
+                        }
+                    },
+                ],
+            });
+        }
+
+        $('#btnBuscar').click(function () {
+            buscar();
+        });
+
+        function cargarTarjeta() {
+            var urlTarj = "/api/Licitacion/calcularTarjeta?";
+            urlTarj = urlTarj + "nroExpediente=" + $('#txtNroExpediente').val();
+            urlTarj = urlTarj + "&nombreObra=" + $('#txtNombreObra').val();
+            urlTarj = urlTarj + "&fechaPub=" + $('#txtFechaPublic').val();
+            urlTarj = urlTarj + "&idOrganismo=" + $('#selectOrganismo').val();
+            urlTarj = urlTarj + "&nroObra=" + $('#txtNroObra').val();
+
+            $.getJSON(urlTarj)
+                .done(function (data) {
+                    $('#qAPublicar').text(data.replay.qAPublicar);
+                    $('#qPublicada').text(data.replay.qPublicada);
+                    $('#qAbierta').text(data.replay.qAbierta);
+                    $('#qDesierta').text(data.replay.qDesierta);
+                    $('#qFracasada').text(data.replay.qFracasada);
+                    $('#qPreAdjudicada').text(data.replay.qPreAdjudicada);
+                    $('#qAdjudicada').text(data.replay.qAdjudicada);
+                    $('#qFirmada').text(data.replay.qFirmada);
+
+                })
+                .fail(function (erro) {
+                    console.log('Error al cargar las Tarjetas');
+                });
+        }
+
+        function filtrarEstado(idEstado) {
+            idEstadoGlobal = idEstado;
+            $('#tablaObra').DataTable().destroy();
+            var url = "/api/Licitacion/listarObra?";
+            url = url + "nroExpediente=" + $('#txtNroExpediente').val();
+            url = url + "&nombreObra=" + $('#txtNombreObra').val();
+            url = url + "&fechaPub=" + $('#txtFechaPublic').val();
+            url = url + "&idOrganismo=" + $('#selectOrganismo').val();
+            url = url + "&idEstado=" + idEstado;
+            url = url + "&nroObra=" + $('#txtNroObra').val();
+            cargarTabla(url);
+        }
+
+        function cargarNroObra(idObra) {
+            $('#idObra').val(idObra);
+            mostrarPopup(idObra);
+        }
+
+        $('#btnCerrarPopupObra').click(function () {
+            $('#modal-popup-Obra').css("display", "none");
+        });
+        $('#btnImprimirPopupObra').click(function () {
+            var idObra = $('#idObra').val();
+            //var urlMasiva = 'https://buhogestion.mendoza.gov.ar/Proyect/VistaResumen?id=' + idObra;
+            var urlMasiva = 'https://buhogestion.mendoza.gov.ar/Proyect/Crud?id=' + idObra;
+            window.open(urlMasiva, '_blank', 'noopener, noreferrer');
+        });
+        $('#btnGuardarPopupObra').click(function () {
+            grabarDatos();
+            grabarEspecialidad();
+            grabarFechas();
+            $('#modal-success').css("display", "block");
+            setTimeout(function () {
+                $('#modal-success').css("display", "none");
+            }, 900);
+        });
+
+        $('#btnCerrarPpReferencia').click(function () {
+            $('#divPpReq1').css("display", "flex");
+            $('#divPpReq2').css("display", "flex");
+            $('#divBotoneraPopupObra').css("display", "flex");
+            $('#divPpReq3').css("display", "none");
+        });
+        $('#btnCerrarPpRequisito').click(function () {
+            $('#divPpReq2').css("display", "flex");
+            $('#divBotoneraPopupObra').css("display", "flex");
+            $('#divPpReq4').css("display", "none");
+        });
+        $('#btnGuardarPpReferencia').click(function () {
+            grabarReferencia();
+            $('#divPpReq1').css("display", "flex");
+            $('#divPpReq2').css("display", "flex");
+            $('#divBotoneraPopupObra').css("display", "flex");
+            $('#divPpReq3').css("display", "none");
+        });
+        $('#btnGuardarPpRequisito').click(function () {
+            grabarRequisito();
+            $('#divPpReq2').css("display", "flex");
+            $('#divBotoneraPopupObra').css("display", "flex");
+            $('#divPpReq4').css("display", "none");
+        });
+        $('#selectPpReferencia').change(function () {
+            cargarTablaReferenciaDisponible();
+        });
+        $('#selectPpSobre').change(function () {
+            cargarTablaReferenciaDisponible();
+            cargarTablaRequisitoObra();
+        });
+
+        $('#selectPpSobreOferta').change(function () {
+            cargarTablaOferta();
+        });
+
+        $('#btnCerrarPopupArchivo').click(function () {
+            $('#hdPopupIdArchivo').val(0);
+            $('#divObsArchivo').css("display", "none");
+        });
+        $('#btnGuardarPopupArchivo').click(function () {
+            cambiarEstadoArchivo($('#hdPopupIdArchivo').val(), $('#idPpEstadoArchivo').val());
+            $('#hdPopupIdArchivo').val(0);
+            $('#divObsArchivo').css("display", "none");
+        });
+
+        $('#btnNotificarActa').click(function () {
+            enviarNotificacionActa();
+        });
+
+        function imprimirFicha(idObra) {
+            //var urlMasiva = '/api/Licitacion/ImprimirFicha?idObra=' + idObra;
+            //window.location.href = urlMasiva;
+            var urlMasiva = 'https://buhogestion.mendoza.gov.ar/Proyect/VistaResumen?id=' + idObra;
+            window.open(urlMasiva, '_blank', 'noopener, noreferrer');
+        }
+        $('#expoImprimir').click(function () {
+            buscarObraParaReporte();
+        });
+        $('#btnExportar').click(function () {
+            $('#modalExportar').show();
+        });
+        $('#expoCerrar').click(function () {
+            $('#modalExportar').hide();
+            vaciarImprimir();
+        });
+        function marcarTodos() {
+            if ($('#todosI').is(':checked') == true) {
+                $("#nombreObraI").prop("checked", true);
+                $('#expedienteI').prop("checked", true);
+                $('#publicacionI').prop("checked", true);
+                $('#organismoI').prop("checked", true);
+                $('#montoI').prop("checked", true);
+                $('#etapaI').prop("checked", true);
+            } else {
+
+                $("#nombreObraI").prop("checked", false);
+                $('#expedienteI').prop("checked", false);
+                $('#publicacionI').prop("checked", false);
+                $('#organismoI').prop("checked", false);
+                $('#montoI').prop("checked", false);
+                $('#etapaI').prop("checked", false);
+            }
+        };
+        function vaciarImprimir() {
+            $("#nombreObraI").prop("checked", false);
+            $('#expedienteI').prop("checked", false);
+            $('#publicacionI').prop("checked", false);
+            $('#organismoI').prop("checked", false);
+            $('#montoI').prop("checked", false);
+            $('#etapaI').prop("checked", false);
+            $('#todosI').prop("checked", false);
+        }
+        var idObraStr;
+        function buscarObraParaReporte() {
+            var url = "/api/Licitacion/listarLicitaciones?";
+            url = url + "nroExpediente=" + $('#txtNroExpediente').val();
+            url = url + "&nombreObra=" + $('#txtNombreObra').val();
+            url = url + "&fechaPub=" + $('#txtFechaPublic').val();
+            url = url + "&idOrganismo=" + $('#selectOrganismo').val();
+            url = url + "&idEstado=" + idEstadoGlobal;
+            url = url + "&nombre=" + $('#nombreObraI').is(':checked');
+            url = url + "&expediente=" + $('#expedienteI').is(':checked');
+            url = url + "&publicacion=" + $('#publicacionI').is(':checked');
+            url = url + "&organismo=" + $('#organismoI').is(':checked');
+            url = url + "&monto=" + $('#montoI').is(':checked');
+            url = url + "&etapa=" + $('#etapaI').is(':checked');
+            window.location.href = url;
+            $('#modalExportar').hide();
+            vaciarImprimir();
+        }
+
+        function generarActa(idObra) {
+            buscarTieneActa(idObra);
+        }
+        $('#btnCerrarPopupActa').click(function () {
+            $('#idObraActa').val(0);
+            $('#modal-popup-Acta').css("display", "none");
+        });
+        $('#btnGuardarPopupActa').click(function () {
+            grabarActa();
+            $('#modal-popup-Acta').css("display", "none");
+        });
+        function buscarTieneActa(idObra) {
+            var urltmp = "/api/Acta/buscarTieneActa?idObra=" + idObra;
+            fetch(urltmp, { method: "GET" })
+                .catch(() => {
+                    alert('Ocurrio un error');
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data == 1) {
+                        /*window.location.href = '/api/Acta/DescargarArchivo?idObra=' + idObra + '&idCategoria=1';*/
+                        $('#idObraActa').val(idObra);
+                        editarPopupActa(idObra);
+                    }
+                    else {
+                        $('#idObraActa').val(idObra);
+                        mostrarPopupActa(idObra);
+                    }
+                })
+        }
+
+        $('#btnSubirActa').click(function () {
+            guardarArchivoActaApertura();
+        });
+        $('#btnSubirActaAdjudicacion').click(function () {
+            guardarArchivoActaAdjudicacion();
+        });
+        $('#btnSubirContrato').click(function () {
+            guardarArchivoContrato();
+        });
+        $('#btnSubirInicio').click(function () {
+            guardarArchivoActaInicio();
+        });
+
+        $('#btnOfertaAbierta').click(function () {
+            cambiarEtapa(7);
+        });
+        $('#btnLicDesierta').click(function () {
+            cambiarEtapa(17);
+        });
+        $('#btnPublicada').click(function () {
+            cambiarEtapa(6);
+        });
+        $('#btnLicFracasada').click(function () {
+            cambiarEtapa(16);
+        });
+        $('#btnPreAdjudicada').click(function () {
+            cambiarEtapa(15);
+        });
+        $('#btnAdjudicada').click(function () {
+            cambiarEtapa(14);
+        });
+        $('#btnContratoFirmado').click(function () {
+            cambiarEtapa(8);
+        });
+        $('#btnEtapaAnterior').click(function () {
+            cambiarEtapaAnterior($('#idPpEtapa').val());
+        });
+    </script>
+}

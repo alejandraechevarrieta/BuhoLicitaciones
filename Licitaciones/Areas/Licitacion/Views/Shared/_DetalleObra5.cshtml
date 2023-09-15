@@ -1,0 +1,1096 @@
+﻿<style>
+    .fa-eraser:hover {
+        cursor: pointer;
+    }
+
+    .bg-light-blue, .label-primary, .modal-primary .modal-body {
+        background-color: #3c8dbc !important;
+        color: #fff !important;
+    }
+
+
+    .bg-yellow, .callout.callout-warning, .alert-warning, .label-warning, .modal-warning .modal-body {
+        background-color: #f39c12 !important;
+        color: #fff !important;
+    }
+
+    .panel {
+        margin-bottom: 2px !important;
+        background-color: #fff;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    }
+
+    .panel-info > .panel-heading {
+        color: white;
+        background-color: #5bc0de;
+        border-color: #5bc0de;
+    }
+
+    .panel-info > .panel-heading-left {
+        background-color: #5f2571;
+        border-color: #5f2571;
+    }
+
+    .panel-body {
+        padding: 0px 0px !important;
+        margin-bottom: 0rem !important;
+    }
+
+    hr {
+        height: 1px;
+        background-color: #009BDB;
+    }
+
+    h4.title-item {
+        font-size: 1em;
+        font-weight: bold;
+    }
+
+    .text-muted {
+        color: #777;
+    }
+
+    .text-item {
+        font-size: .95em;
+        text-align: justify;
+    }
+
+    .no-margin {
+        margin: 0 !important;
+    }
+
+    .pagination > li {
+        display: inline;
+    }
+
+    .pagination {
+        display: inline-block;
+        padding-left: 0;
+        margin: 20px 0;
+        border-radius: 4px;
+    }
+
+    .pull-right {
+        float: right !important;
+    }
+
+    .pagination > li > a {
+        background: #fafafa;
+        color: #666;
+    }
+
+    .pagination-sm > li > a, .pagination-sm > li > span {
+        padding: 5px 10px;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    span.badge-round {
+        display: inline-block;
+        height: 50px;
+        line-height: 50px;
+        width: 75px;
+        font-size: 12px;
+        font-weight: bold;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        border-radius: 30px;
+    }
+
+    .badge {
+        display: inline-block;
+        min-width: 10px;
+        padding: 3px 7px;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        background-color: #777;
+        border-radius: 10px;
+    }
+
+    .badgeHover {
+        color: #666;
+        display: inline-block;
+        min-width: 10px;
+        padding: 3px 7px;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        background-color: #777;
+        border-radius: 10px;
+    }
+    [data-title]:hover:after {
+        opacity: 1;
+        transition: all 0.1s ease 0.5s;
+        visibility: visible;
+    }
+
+    [data-title]:after {
+        content: attr(data-title);
+        position: absolute;
+        bottom: -1.6em;
+        left: 100%;
+        padding: 4px 4px 4px 8px;
+        color: #222;
+        white-space: nowrap;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        -moz-box-shadow: 0px 0px 4px #222;
+        -webkit-box-shadow: 0px 0px 4px #222;
+        box-shadow: 0px 0px 4px #222;
+        opacity: 0;
+        z-index: 99999;
+        visibility: hidden;
+        color: white;
+        background-color: black;
+        font-family: "Source Sans Pro",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    }
+
+    [data-title] {
+        position: relative;
+    }
+</style>
+
+<div class="modal-dialog" style="margin-left: 5%;margin-top: 1%; margin-right: 5%;max-width: 90%!important;" id="modal-obra">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="panel-body">
+                <div class="row" style="margin-bottom: -2%;">
+                    <div class="col-md-10 form-group" style="margin-top:1%;">
+                        <label class="title-item">Obra:</label>
+                        <span class="text-muted text-item badge bg-light-blue" id="ppCabeceraObra"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group" style="margin-top:1%;">
+                        <label class="title-item">Expediente:</label>
+                        <span class="text-muted text-item badge bg-yellow" id="ppCabeceraExpediente"></span>
+                    </div>
+                    <div class="col-md-6 form-group" style="margin-top:1%;">
+                        <label class="title-item">Caratula:</label>
+                        <span class="text-muted text-item badge bg-gradient-olive" style="color: white!important;" id="ppCabeceraCaratula"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active"
+                           id="primerTab"
+                           data-toggle="tab"
+                           href="#solInfo"
+                           role="tab"
+                           aria-selected="true">
+                            <span class="fa fa-home">
+                            </span>
+                            Datos Obra
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           data-toggle="tab"
+                           href="#solReclamo"
+                           role="tab"
+                           aria-selected="true">
+                            <span class="fa fa-fw fa-dollar-sign">
+                            </span>
+                            Licitacion
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           data-toggle="tab"
+                           href="#solIngreso"
+                           role="tab"
+                           aria-selected="true">
+                            <span class="fa fa-fw fa-list-ul">
+                            </span>
+                            Requisitos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           data-toggle="tab"
+                           href="#solGeo"
+                           role="tab"
+                           aria-selected="true">
+                            <span class="fa fa-fw fa-file">
+                            </span>
+                            Documentacion
+                        </a>
+                    </li>
+                    @*<li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#solReclamo" role="tab" aria-selected="true"><span class="fa fa-fw fa-tags"></span> Ofertas</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#solIngreso" role="tab" aria-selected="false"><span class="fa fa-industry"></span> Otros Datos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#solVinculo" role="tab" aria-selected="false"><span class="fa fa-share-alt"></span> Vinculos</a>
+        </li>*@
+                    @*<li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#solFactura" role="tab" aria-selected="false"><span class="fa fa-money"></span> Facturas</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#solPagos" role="tab" aria-selected="false"><span class="fa fa-usd"></span> Recibos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#solImputacion" role="tab" aria-selected="false"><span class="fa fa-calculator"></span> Imputación</a>
+        </li>*@
+                    @*<li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#solVisita" role="tab" aria-selected="false"><span class="fa fa-calendar-check-o"></span> Visitas</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#solComentario" role="tab" aria-selected="false"><span class="fa fa-bars"></span> Comentarios</a>
+        </li>*@
+                </ul>
+                <div class="tab-content" style="width: 100%;">
+                    <div class="tab-pane active" id="solInfo" role="tabpanel">
+                        <div class="col-xs-12">
+                            <div class="panel panel-info">
+                                <div class="panel-heading-left panel-heading">
+                                    <strong>INFORMACION GENERAL</strong>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row" style="margin-top: 10px;">
+                                        <div class="col-md-1">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Dato adicional que se considere relevante para la obra"
+                                               style="font-size: smaller; cursor: help; margin-top: 10px !important;"></i>
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Descripción:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <input type="text"
+                                                   class="form-control"
+                                                   style="display:inline !important; font-size: smaller !important;"
+                                                   id="txtPpDescripcion" />
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 10px;">
+                                        <!--
+        <div class="col-md-1">
+            <i class="fa fa-question-circle"
+               data-title="Las etapas de un proyecto definen las diferentes fases necesarias para su realizacion y configuran su ciclo de vida. Así, todo proyecto tiene tres momentos cruciales: Proyecto, Proceso Licitatorio, y En Obra"
+               style="font-size: smaller; cursor: help; margin-top: 10px !important;"></i>
+            <label class="title-item" style="margin-top: 5px !important;">
+                Etapa:
+            </label>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control"
+                    style="width: 90% !important; display:inline !important; font-size: smaller;"
+                    id="selectPpEtapa">
+            </select>
+        </div>
+            -->
+                                        <div class="col-md-1">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Las Etapas de Banco de Proyectos están vinculadas fuertemente con el Ciclo de Vida del Proyecto y describen con mas detalle su estado. Identificar la fase en la que se encuentra la necesidad solicitada"
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Estado:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <select class="form-control"
+                                                    style="width: 90% !important; display:inline !important;font-size: smaller;"
+                                                    id="selectPpEstado">
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Organismo provincial responsable de la Licitación/Convenio/Contrato."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Organismo:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <select class="form-control"
+                                                    style="width: 90% !important; display:inline !important;"
+                                                    id="selectPpOrganismo">
+                                            </select>
+                                        </div>
+                                        <i class="fa fa-question-circle"
+                                           data-title="Se conoce como financiamiento al mecanismo por medio del cual se aporta dinero para la ejecución del proyecto. El financiamiento puede ser provincial, nacional o internacional."
+                                           style="font-size: smaller; cursor: help; margin-top: 10px !important;"></i>
+                                        <div class="col-md-1">
+                                            <label class="title-item">
+                                                Fuente Financiamiento:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <select class="form-control"
+                                                    style="width: 90% !important; display:inline !important;"
+                                                    id="selectPpFinanciamiento">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 10px;">
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Especialidad:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Especialidad que debe tener la empresa para realizar una oferta."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <select class="form-control"
+                                                    style="width: 90% !important; display:inline !important;"
+                                                    id="selectPpEspecialidad">
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Porcentaje Especialidad:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Ingresar un valor que va de 1 a 100. La suma de todos los porcentajes no puede superar el 100%"
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   style="width: 90% !important; display:inline !important;"
+                                                   id="txtPpPorcentaje" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button class="btn btn-success" style="font-size: smaller;">Agregar</button>
+                                        </div>
+                                        <div class="col-md-2 form-group">
+                                            <table class="table table-responsive">
+                                                <thead>
+                                                    <tr>
+                                                        Especialidad
+                                                    </tr>
+                                                    <tr>
+                                                        Porcentaje
+                                                    </tr>
+                                                    <tr>
+                                                        Accion
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="panel-heading-left panel-heading" style="background-color: #5f2571; border-color: #5f2571;color: white;">
+                                        <strong>LOCALIZACION</strong>
+                                    </div>
+                                    <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Departamento:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Hace referencia a la división municipal de provincia. La ubicación de un proyecto puede abarcar más de un departamento."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <select class="form-control"
+                                                    style="width: 90% !important; display:inline !important;"
+                                                    id="selectPpDepartamento">
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Latitud:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Para obtener la Latitud, ingrese al sitio de Google Maps y busque la ubicación de la obra. De click derecho sobre el punto exacto en el mapa y le mostrará los valores de latitud y longitud. El primer valor representa la Latitud. Formato de ejemplo: -34,91077400."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   style="width: 90% !important; display:inline !important;"
+                                                   id="txtPpLatitud" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Longitud:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Para obtener la Longitud, ingrese al sitio de Google Maps y busque la ubicación de la obra. De click derecho sobre el punto exacto en el mapa y le mostrará los valores de latitud y longitud. El segundo valor representa la Latitud. Formato de ejemplo: -67,81825700."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   style="width: 90% !important; display:inline !important;"
+                                                   id="txtPpLatitud" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="solReclamo" role="tabpanel">
+                        <div class="col-xs-12">
+                            <div class="panel panel-info">
+                                <div class="panel-heading-left panel-heading">
+                                    <strong>DATOS LICITACION</strong>
+                                </div>
+                                <div class="panel-body" style="margin-bottom:0px !important; padding-top:0px !important">
+                                    <div class="row" style="margin-top: 10px;">
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Presupuesto:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="El presupuesto oficial es el estudio detallado efectuado por la administración, de las cubicaciones, precios unitarios y precio total previsto de una obra."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   style="width: 90% !important; display:inline !important;"
+                                                   id="txtPpPresupuesto" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Moneda:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Se refiere a la moneda del monto del presupuesto, en general es PESOS, pero algunas obras son presupuestadas en DOLARES o DOLARES y PESOS."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <select class="form-control"
+                                                    style="width: 90% !important; display:inline !important;"
+                                                    id="selectPpMoneda">
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Tipo Contratación:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Se seleccionará la modalidad de contratación según lo que se indica en el Pliego de Bases y Condiciones Particulares Legales el presupuesto oficial de la Obra."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <select class="form-control"
+                                                    style="width: 90% !important; display:inline !important;"
+                                                    id="selectPpTipoContratacion">
+                                            </select>
+                                        </div>                                        
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Meses Ejecución:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Tiempo (en meses) calculado para la duración total de la obra."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   style="width: 90% !important; display:inline !important;"
+                                                   id="txtPpEjecucion" />
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 10px;">
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Url Pliego:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Link de descarga del Pliego de Bases y Condiciones Generales, subido al sistema COMPRAR."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   style="width: 90% !important; display:inline !important;"
+                                                   id="txtPpUrlPliego" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Valor Pliego:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="En algunos casos la adquisición del pliego tiene un costo."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   style="width: 90% !important; display:inline !important;"
+                                                   id="txtPpValorPliego" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Mail Consultas:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Dirección de email oficial donde deben dirigirse las empresas cuando tienen una consulta sobre la Licitación."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   style="width: 90% !important; display:inline !important;"
+                                                   id="txtPpMailConsulta" />
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 10px;">
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Fecha Publicación:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Fecha de la primera publicación debe coincidir con la fecha del boletín oficial."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="date"
+                                                   class="form-control"
+                                                   style="width: 90% !important; display:inline !important;"
+                                                   id="txtPpFechaPublicacion" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Limite Consultas:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Fecha hasta la cual se pueden recibir consultas y aclaraciones de la Licitación."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="date"
+                                                   class="form-control"
+                                                   style="width: 90% !important; display:inline !important;"
+                                                   id="txtPpLimiteConsultas" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Fecha Apertura:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Fecha en la cual se produce la apertura de OFERTAS."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="date"
+                                                   class="form-control"
+                                                   style="width: 90% !important; display:inline !important;"
+                                                   id="txtPpFechaApertura" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Hora Apertura:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Hora en la cual se produce la apertura de OFERTAS."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="time"
+                                                   class="form-control"
+                                                   style="width: 90% !important; display:inline !important;"
+                                                   id="txtPpHoraApertura" />
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 10px;">
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Domicilio Presentación:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Domicilio donde debe presentarse los sobres de las ofertas en formato papel."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   style="width: 90% !important; display:inline !important;"
+                                                   id="txtPpDomicilioPresentacion" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Domicilio Apertura:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Domicilio donde se realizará el acto de apertura de OFERTAS."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   style="width: 90% !important; display:inline !important;"
+                                                   id="txtPpDomicilioApertura" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="solGeo" role="tabpanel">
+                        <div class="col-xs-12">
+                            <div class="panel panel-info">
+                                <div class="panel-heading-left panel-heading">
+                                    <strong>DOCUMENTACION</strong>
+                                </div>
+                                <div class="panel-body" style="margin-bottom:0px !important; padding-top:0px !important">
+                                    <div class="row">
+                                        <div class="col-md-8 form-group">
+                                            <label class="title-item" id="ppGeolocalizacion"></label>
+                                        </div>
+                                    </div>
+                                    <div id="map"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="solIngreso" role="tabpanel">
+                        <div class="col-xs-12">
+                            <div class="panel panel-info">
+                                <div class="panel-heading-left panel-heading">
+                                    <strong>INGRESOS</strong>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-3 form-group">
+                                            <label class="title-item">Ingreso Mensual:</label>
+                                            <span class="text-muted text-item" id="ppIngresoMensual">
+                                            </span>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label class="title-item">Ingreso Complementario:</label>
+                                            <span class="text-muted text-item" id="ppIngresoComplementario">
+                                            </span>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label class="title-item">Otro Ingreso:</label>
+                                            <span class="text-muted text-item" id="ppOtroIngreso">
+                                            </span>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label class="title-item">Actividad:</label>
+                                            <span class="text-muted text-item" id="ppActividad">
+                                            </span>
+                                        </div>
+                                        @*<div class="col-md-3 form-group">
+                                <label class="title-item">Monto Disponible:</label>
+                                <span class="text-muted text-item" id="ppMontoDisponible">
+                                </span>
+                            </div>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="panel panel-info">
+                                <div class="panel-heading-left panel-heading">
+                                    <strong>DOMICILIO ALTERNATIVO</strong>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6 form-group">
+                                            <label class="title-item">Domicilio:</label>
+                                            <span class="text-muted text-item" id="ppDomicilioAlt">
+                                            </span>
+                                        </div>
+                                        <div class="col-md-2 form-group">
+                                            <label class="title-item">Departamento:</label>
+                                            <span class="text-muted text-item" id="ppDepartamentoAlt">
+                                            </span>
+                                        </div>
+                                        <div class="col-md-2 form-group">
+                                            <label class="title-item">Teléfono:</label>
+                                            <span class="text-muted text-item" id="ppTelefonoAlt">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="panel panel-info">
+                                <div class="panel-heading-left panel-heading">
+                                    <strong>DOMICILIO TRABAJO</strong>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6 form-group">
+                                            <label class="title-item">Domicilio:</label>
+                                            <span class="text-muted text-item" id="ppDomicilioTrab">
+                                            </span>
+                                        </div>
+                                        <div class="col-md-2 form-group">
+                                            <label class="title-item">Empresa:</label>
+                                            <span class="text-muted text-item" id="ppDepartamentoTrab">
+                                            </span>
+                                        </div>
+                                        <div class="col-md-2 form-group">
+                                            <label class="title-item">Teléfono:</label>
+                                            <span class="text-muted text-item" id="ppTelefonoTrab">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="solVinculo" role="tabpanel">
+                        <div class="col-xs-12">
+                            <div class="panel panel-info">
+                                <div class="panel-heading-left panel-heading">
+                                    <strong>VINCULO</strong>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-3 form-group">
+                                            <label class="title-item">Tipo Vinculo:</label>
+                                            <span class="text-muted text-item" id="ppTipoVinculo">
+                                            </span>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label class="title-item">Nombre:</label>
+                                            <span class="text-muted text-item" id="ppNombreVinculo">
+                                            </span>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label class="title-item">DNI:</label>
+                                            <span class="text-muted text-item" id="ppDniVinculo">
+                                            </span>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label class="title-item">Ingreso:</label>
+                                            <span class="text-muted text-item" id="ppIngresoVinculo">
+                                            </span>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label class="title-item">Empresa:</label>
+                                            <span class="text-muted text-item" id="ppEmpresaVinculo">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="solFactura" role="tabpanel">
+                        <div class="col-xs-12" style="max-height: 90%!important;">
+                            <div class="panel panel-info">
+                                <div class="panel-heading-left panel-heading">
+                                    <strong>FACTURAS</strong>
+                                </div>
+                                <div class="panel-body" style="margin-bottom:0px !important; padding-top:0px !important">
+                                    <div class="row" style="height:110px;overflow-y: scroll; margin-right:0px !important;">
+                                        <table class="table" id="tableFactura" style="margin-left:15px;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: left;">Nro Factura</th>
+                                                    <th style="text-align: left;">Nota Credito</th>
+                                                    <th style="text-align: center;">Fecha</th>
+                                                    <th style="text-align: center;">Monto Anticipo</th>
+                                                    <th style="text-align: center;">Monto</th>
+                                                    <th style="text-align: center;">Saldo</th>
+                                                    <th style="text-align: center;">Estado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="panel panel-info">
+                                <div class="panel-heading-left panel-heading">
+                                    <strong>PRODUCTOS</strong>
+                                </div>
+                                <div class="panel-body" style="margin-bottom:0px !important; padding-top:0px !important">
+                                    <div class="row" style="height:110px;overflow-y: scroll; margin-right:0px !important;">
+                                        <div class="col-md-12">
+                                            <table class="table" id="tableProducto">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="text-align: left;">Producto</th>
+                                                        <th style="text-align: center;">Forma de pago</th>
+                                                        <th style="text-align: center;">Cantidad</th>
+                                                        <th style="text-align: center;">Precio Individual</th>
+                                                        <th style="text-align: center;">Precio Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                            <div>
+                                                <span id="detalleNotaCredito" style="margin-left: 1%;"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="panel panel-info">
+                                <div class="panel-heading-left panel-heading">
+                                    <strong>CUOTAS</strong>
+                                </div>
+                                <div class="panel-body" style="margin-bottom:0px !important; padding-top:0px !important">
+                                    <div class="row" style="height:110px;overflow-y: scroll; margin-right:0px !important;">
+                                        <div class="col-md-12">
+                                            <table class="table" id="tableCuenta">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="text-align: center;">Nro Factura</th>
+                                                        <th style="text-align: center;">Vencimiento</th>
+                                                        <th style="text-align: center;">Monto Cuota</th>
+                                                        <th style="text-align: center;">Nro Recibo</th>
+                                                        <th style="text-align: center;">Fecha Recibo</th>
+                                                        <th style="text-align: center;">Monto Recibo</th>
+                                                        <th style="text-align: center;">Nota Credito</th>
+                                                        <th style="text-align: center;">Monto Credito</th>
+                                                        <th style="text-align: center;">Cuota Final</th>
+                                                        <th style="text-align: center;">Estado</th>
+                                                        <th style="text-align: center;">Accion</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="solPagos" role="tabpanel">
+                        <div class="col-xs-12" style="max-height: 90%!important;">
+                            <div class="panel panel-info">
+                                <div class="panel-heading-left panel-heading">
+                                    <strong>RECIBOS</strong>
+                                </div>
+                                <div class="panel-body" style="margin-bottom:0px !important; padding-top:0px !important">
+                                    <div class="row" style="height:310px;overflow-y: scroll; margin-right:0px !important;">
+                                        <table class="table" id="tablePago" style="margin-left:15px;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: left;">Nro Recibo</th>
+                                                    <th style="text-align: center;">Fecha</th>
+                                                    <th style="text-align: center;">Monto Capital</th>
+                                                    <th style="text-align: center;">Monto Otro</th>
+                                                    <th style="text-align: center;">Monto Total</th>
+                                                    <th style="text-align: center;">Acción</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="solImputacion" role="tabpanel">
+                        <div class="col-xs-12" style="max-height: 90%!important;">
+                            <div class="panel panel-info">
+                                <div class="panel-heading-left panel-heading">
+                                    <strong>RECIBOS SIN IMPUTAR</strong>
+                                </div>
+                                @*<div class="row">
+                        <button class="btn btn-primary" id="btnRecargar" style="margin-left:2%;margin-top:2px;margin-bottom:2px;">Actualizar</button>
+                    </div>*@
+                                <div class="panel-body" style="margin-bottom:0px !important; padding-top:0px !important">
+                                    <div class="row" style="max-height:310px;overflow-y: scroll; margin-right:0px !important;">
+                                        <table class="table" id="tablePagoSinImp" style="margin-left:15px;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: left;">Nro Recibo</th>
+                                                    <th style="text-align: center;">Fecha</th>
+                                                    <th style="text-align: center;">Monto Capital</th>
+                                                    <th style="text-align: center;">Monto Otro</th>
+                                                    <th style="text-align: center;">Monto Total</th>
+                                                    <th style="text-align: center;">Acción</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="solVisita" role="tabpanel">
+                        <div class="col-xs-12" style="max-height: 90%!important;">
+                            <div class="panel panel-info">
+                                <div class="panel-heading-left panel-heading">
+                                    <strong>VISITAS REALIZADAS</strong>
+                                </div>
+                                <div class="panel-body" style="margin-bottom:0px !important; padding-top:0px !important">
+                                    <div class="row" style="max-height:310px;overflow-y: scroll; margin-right:0px !important;">
+                                        <table class="table" id="tableVisita" style="margin-left:15px;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center;">Fecha</th>
+                                                    <th style="text-align: center;">Hora</th>
+                                                    <th style="text-align: center;">Domicilio</th>
+                                                    <th style="text-align: center;">Cobrador</th>
+                                                    <th style="text-align: center;">Estado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="solComentario" role="tabpanel">
+                        <div class="col-xs-12" style="max-height: 90%!important;">
+                            <div class="panel panel-info">
+                                <div class="panel-heading-left panel-heading">
+                                    <strong>COMENTARIOS</strong>
+                                </div>
+                                <div class="panel-body" style="margin-bottom:0px !important; padding-top:0px !important">
+                                    <div class="row" style="max-height:310px;overflow-y: scroll; margin-right:0px !important;">
+                                        <table class="table" id="tableComentario" style="margin-left:15px;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center;">Fecha</th>
+                                                    <th style="text-align: center;">Cobrador</th>
+                                                    <th style="text-align: center;">Comentario</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <button class="btn btn-danger" id="btnCerrarPopupObra" style="margin-left: 1%;">Cerrar</button>
+                <button class="btn btn-success" id="btnDescongelarPopup" style="color:white;margin-left: 1%;">Guardar</button>
+                <button class="btn btn-primary" id="btnPdfDeuda" style="margin-left: 1%;">Ficha</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" value="0" id="idObra" />
+
+@section Scripts {
+
+}
+
+<script>   
+    function mostrarPopup(idObra) {
+        loadOrganismoPopup($('#selectPpOrganismo'), true);
+        loadFinanciamientoPopup($('#selectPpFinanciamiento'), true);
+        loadEtapaPopup($('#selectPpEstado'), false);
+        $('#modal-popup-Obra').css("display", "block");
+        $('#selectPpFinanciamiento').select2({
+            theme: 'bootstrap4'
+        })
+        $('#selectPpOrganismo').select2({
+            theme: 'bootstrap4'
+        })
+        cargarInfoGeneral(idObra);
+    }
+
+    function loadOrganismoPopup(control, seleccionar) {
+        var select = control;
+        select.empty();
+
+        if (seleccionar) {
+            select.append($('<option/>', { value: '0', text: '--Seleccione--' }));
+        }
+
+        var urltmp = "/api/Organismo/Listar";
+        fetch(urltmp, { method: "GET" })
+            .catch(() => {
+                alert('Ocurrio un error');
+            })
+            .then(res => res.json())
+            .then(data => {
+                $.each(data.replay, function (index, result) {
+                    select.append($('<option/>', {
+                        value: result.id,
+                        text: result.nombre
+                    }));
+                });
+            })
+    }
+
+    function loadFinanciamientoPopup(control, seleccionar) {
+        var select = control;
+        select.empty();
+
+        if (seleccionar) {
+            select.append($('<option/>', { value: '0', text: '--Seleccione--' }));
+        }
+
+        var urltmp = "/api/Financiamiento/Listar";
+        fetch(urltmp, { method: "GET" })
+            .catch(() => {
+                alert('Ocurrio un error');
+            })
+            .then(res => res.json())
+            .then(data => {
+                $.each(data.replay, function (index, result) {
+                    select.append($('<option/>', {
+                        value: result.id,
+                        text: result.nombre
+                    }));
+                });
+            })
+    }
+
+    function loadEtapaPopup(control, seleccionar) {
+        var select = control;
+        select.empty();
+        var urltmp = "/api/Etapa/Listar";
+        fetch(urltmp, { method: "GET" })
+            .catch(() => {
+                alert('Ocurrio un error');
+            })
+            .then(res => res.json())
+            .then(data => {
+                $.each(data.replay, function (index, result) {
+                    select.append($('<option/>', {
+                        value: result.id,
+                        text: result.nombre
+                    }));
+                });
+            })
+    }
+
+    function cargarInfoGeneral(idObra) {
+        var urltmp = "/api/Licitacion/buscarUna?idObra=" + idObra;
+        fetch(urltmp, { method: "GET" })
+            .catch(() => {
+                alert('Ocurrio un error');
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                $('#ppCabeceraObra').text(data.replay.nombreObra);
+                $('#ppCabeceraExpediente').text(data.replay.nroExpediente);
+                $('#ppCabeceraCaratula').text(data.replay.caratula);
+                $('#txtPpDescripcion').val(data.replay.descripcion);
+                $('#selectPpOrganismo').val(data.replay.idOrganismo).change();
+                $('#selectPpEstado').val(data.replay.idEtapa).change();
+            })
+    }
+</script>

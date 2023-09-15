@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2c0582fc63ed4db3b287b94a136409bb" Name="Diagram1" ZoomLevel="75">
+        <EntityTypeShape EntityType="db_meieModel.GrlType" Width="1.5" PointX="4.375" PointY="1.25" IsExpanded="false" FillColor="128, 64, 0" />
+        <EntityTypeShape EntityType="db_meieModel.GrlTypeConfig" Width="1.5" PointX="4.375" PointY="0.75" IsExpanded="false" FillColor="128, 64, 0" />
+        <EntityTypeShape EntityType="db_meieModel.PryLicitacion" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="false" FillColor="LimeGreen" />
+        <EntityTypeShape EntityType="db_meieModel.PryProyecto" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="false" FillColor="LimeGreen" />
+        <EntityTypeShape EntityType="db_meieModel.SegAccess" Width="1.5" PointX="6.25" PointY="0.75" IsExpanded="false" FillColor="Silver" />
+        <EntityTypeShape EntityType="db_meieModel.SegOffice" Width="1.5" PointX="6.25" PointY="1.75" IsExpanded="false" FillColor="Silver" />
+        <EntityTypeShape EntityType="db_meieModel.SegPassword" Width="1.5" PointX="6.25" PointY="1.25" IsExpanded="false" FillColor="Silver" />
+        <EntityTypeShape EntityType="db_meieModel.SegProfile" Width="1.5" PointX="6.25" PointY="4.75" IsExpanded="false" FillColor="Silver" />
+        <EntityTypeShape EntityType="db_meieModel.SegProfileAccess" Width="1.5" PointX="6.25" PointY="2.25" IsExpanded="false" FillColor="Silver" />
+        <EntityTypeShape EntityType="db_meieModel.SegTitulo" Width="1.5" PointX="6.25" PointY="3.25" IsExpanded="false" FillColor="Silver" />
+        <EntityTypeShape EntityType="db_meieModel.SegUser" Width="1.5" PointX="6.25" PointY="3.75" IsExpanded="false" FillColor="Silver" />
+        <EntityTypeShape EntityType="db_meieModel.SegUserProfile" Width="1.5" PointX="6.25" PointY="2.75" IsExpanded="false" FillColor="Silver" />
+        <EntityTypeShape EntityType="db_meieModel.SegUserTitulo" Width="1.5" PointX="6.25" PointY="4.25" IsExpanded="false" FillColor="Silver" />
+        <EntityTypeShape EntityType="db_meieModel.GrlDepartament" Width="1.5" PointX="4.375" PointY="1.75" IsExpanded="false" FillColor="128, 64, 0" />
+        <EntityTypeShape EntityType="db_meieModel.PryEmpresa" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="false" FillColor="LimeGreen" />
+        <EntityTypeShape EntityType="db_meieModel.PryEspecialidad" Width="1.5" PointX="2.5" PointY="2.75" IsExpanded="false" FillColor="LimeGreen" />
+        <EntityTypeShape EntityType="db_meieModel.PryEstadoEtapa" Width="1.5" PointX="2.5" PointY="3.25" IsExpanded="false" FillColor="LimeGreen" />
+        <EntityTypeShape EntityType="db_meieModel.PryEtapa" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="false" FillColor="LimeGreen" />
+        <EntityTypeShape EntityType="db_meieModel.PryFuentesFinanciamiento" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="false" FillColor="LimeGreen" />
+        <EntityTypeShape EntityType="db_meieModel.PryOrganismosEjecutore" Width="1.5" PointX="2.5" PointY="3.75" IsExpanded="false" FillColor="LimeGreen" />
+        <EntityTypeShape EntityType="db_meieModel.PryProyectoCategoria" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="false" FillColor="LimeGreen" />
+        <EntityTypeShape EntityType="db_meieModel.PryProyectoDimension" Width="1.5" PointX="2.5" PointY="4.25" IsExpanded="false" FillColor="LimeGreen" />
+        <EntityTypeShape EntityType="db_meieModel.PryProyectoEmpresa" Width="1.5" PointX="2.5" PointY="2.25" IsExpanded="false" FillColor="LimeGreen" />
+        <EntityTypeShape EntityType="db_meieModel.PryProyectoEspecialidad" Width="1.5" PointX="2.5" PointY="4.75" IsExpanded="false" FillColor="LimeGreen" />
+        <EntityTypeShape EntityType="db_meieModel.PryProyectoEstado" Width="1.5" PointX="2.5" PointY="0.75" IsExpanded="false" FillColor="LimeGreen" />
+        <EntityTypeShape EntityType="db_meieModel.PryProyectoEtapa" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="false" FillColor="LimeGreen" />
+        <EntityTypeShape EntityType="db_meieModel.PryProyectoExpediente" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="false" FillColor="LimeGreen" />
+        <EntityTypeShape EntityType="db_meieModel.PryProyectoFuente" Width="1.5" PointX="2.5" PointY="1.25" IsExpanded="false" FillColor="LimeGreen" />
+        <EntityTypeShape EntityType="db_meieModel.PryProyectoMunicipio" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="false" FillColor="LimeGreen" />
+        <EntityTypeShape EntityType="db_meieModel.PryProyectoTipoCertificacion" Width="1.5" PointX="0.75" PointY="1.75" FillColor="LimeGreen" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.PryTipoNroExpediente" Width="1.5" PointX="2.5" PointY="1.75" IsExpanded="false" FillColor="LimeGreen" />
+        <AssociationConnector Association="db_meieModel.idPryProyectoTipoCertificacion" />
+        <EntityTypeShape EntityType="db_meieModel.PryProyectoPlanificacion" Width="1.5" PointX="2.5" PointY="5.25" IsExpanded="false" FillColor="LimeGreen" />
+        <EntityTypeShape EntityType="db_meieModel.LicEmpresaObra" Width="1.5" PointX="8" PointY="1.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.LicDocGeneral" Width="1.5" PointX="8" PointY="1.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.LicDocObra" Width="1.5" PointX="8" PointY="2.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.LicArchivoEstado" Width="1.5" PointX="8" PointY="3.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.LicOferta" Width="1.5" PointX="8" PointY="3.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.LicOfertaEstado" Width="1.5" PointX="8" PointY="2.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.LicProyectoFecha" Width="1.5" PointX="8" PointY="5.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.UfiOrgano" Width="1.5" PointX="6.25" PointY="5.25" IsExpanded="false" FillColor="224, 224, 224" />
+        <EntityTypeShape EntityType="db_meieModel.LicActaEstado" Width="1.5" PointX="9.625" PointY="4.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.LicActaGenerica" Width="1.5" PointX="9.625" PointY="4.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.LicActaObra" Width="1.5" PointX="9.625" PointY="5.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.PryProyectoSubEspecialidad" Width="1.5" PointX="9.625" PointY="1.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.PrySubEspecialidad" Width="1.5" PointX="9.625" PointY="2.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.LicArchivoCategoria" Width="1.5" PointX="9.625" PointY="3.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.LicArchivoObra" Width="1.5" PointX="9.625" PointY="3.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.LicEmail" Width="1.5" PointX="9.625" PointY="2.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.LicOfertaEmpresa" Width="1.5" PointX="8" PointY="4.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.PryFinanciacion" Width="1.5" PointX="2.5" PointY="5.75" FillColor="LimeGreen" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.LicDocSobres" Width="1.5" PointX="8" PointY="5.875" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.LicCalificacionChatbot" Width="1.5" PointX="8" PointY="6.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.LicChatbot" Width="1.5" PointX="9.625" PointY="5.875" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.LicEmpresaHabilitada" Width="1.5" PointX="9.625" PointY="1.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.LicProyecto" Width="1.5" PointX="8" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="db_meieModel.LicArchivoEmpresa" Width="1.5" PointX="8" PointY="4.25" IsExpanded="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

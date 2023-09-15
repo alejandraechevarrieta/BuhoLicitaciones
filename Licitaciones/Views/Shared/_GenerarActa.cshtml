@@ -1,0 +1,452 @@
+﻿<style>
+    .fa-eraser:hover {
+        cursor: pointer;
+    }
+
+    .bg-light-blue, .label-primary, .modal-primary .modal-body {
+        background-color: #3c8dbc !important;
+        color: #fff !important;
+    }
+
+
+    .bg-yellow, .callout.callout-warning, .alert-warning, .label-warning, .modal-warning .modal-body {
+        background-color: #f39c12 !important;
+        color: #fff !important;
+    }
+
+    .panel {
+        margin-bottom: 2px !important;
+        background-color: #fff;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    }
+
+    .panel-info > .panel-heading {
+        color: white;
+        background-color: #5bc0de;
+        border-color: #5bc0de;
+    }
+
+    .panel-info > .panel-heading-left {
+        background-color: #5f2571;
+        border-color: #5f2571;
+    }
+
+    .panel-body {
+        padding: 0px 0px !important;
+        margin-bottom: 0rem !important;
+    }
+
+    hr {
+        height: 1px;
+        background-color: #009BDB;
+    }
+
+    h4.title-item {
+        font-size: 1em;
+        font-weight: bold;
+    }
+
+    .text-muted {
+        color: #777;
+    }
+
+    .text-item {
+        font-size: .95em;
+        text-align: justify;
+    }
+
+    .no-margin {
+        margin: 0 !important;
+    }
+
+    .pagination > li {
+        display: inline;
+    }
+
+    .pagination {
+        display: inline-block;
+        padding-left: 0;
+        margin: 20px 0;
+        border-radius: 4px;
+    }
+
+    .pull-right {
+        float: right !important;
+    }
+
+    .pagination > li > a {
+        background: #fafafa;
+        color: #666;
+    }
+
+    .pagination-sm > li > a, .pagination-sm > li > span {
+        padding: 5px 10px;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    span.badge-round {
+        display: inline-block;
+        height: 50px;
+        line-height: 50px;
+        width: 75px;
+        font-size: 12px;
+        font-weight: bold;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        border-radius: 30px;
+    }
+
+    .badge {
+        display: inline-block;
+        min-width: 10px;
+        padding: 3px 7px;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        background-color: #777;
+        border-radius: 10px;
+    }
+
+    .badgeHover {
+        color: #666;
+        display: inline-block;
+        min-width: 10px;
+        padding: 3px 7px;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        background-color: #777;
+        border-radius: 10px;
+    }
+
+    [data-title]:hover:after {
+        opacity: 1;
+        transition: all 0.1s ease 0.5s;
+        visibility: visible;
+    }
+
+    [data-title]:after {
+        content: attr(data-title);
+        position: absolute;
+        bottom: -1.6em;
+        left: 100%;
+        padding: 4px 4px 4px 8px;
+        color: #222;
+        white-space: nowrap;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        -moz-box-shadow: 0px 0px 4px #222;
+        -webkit-box-shadow: 0px 0px 4px #222;
+        box-shadow: 0px 0px 4px #222;
+        opacity: 0;
+        z-index: 99999;
+        visibility: hidden;
+        color: white;
+        background-color: black;
+        font-family: "Source Sans Pro",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    }
+
+    [data-title] {
+        position: relative;
+    }
+
+    .select2-selection__choice {
+        background-color: dodgerblue !important;
+    }
+
+    .select2-results__option {
+        font-size: smaller !important;
+    }
+
+    .select2-selection__choice__remove {
+        color: white !important;
+    }
+    .note-editable {
+        font-size: 25px;
+    }
+</style>
+
+<div class="modal-dialog" style="margin-left: 5%;margin-top: 1%; margin-right: 5%;max-width: 90%!important;" id="modal-acta">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="panel-body">
+                <div class="row" style="margin-bottom: 0%;">
+                    <div class="col-md-6 form-group" style="margin-top:1%;">
+                        <label class="title-item">Obra:</label>
+                        <span class="text-muted text-item badge bg-light-blue" id="ppCabeceraObraActa"></span>
+                    </div>
+                    <div class="col-md-6 form-group" style="margin-top:1%;">
+                        <label class="title-item">Expediente:</label>
+                        <span class="text-muted text-item badge bg-yellow" id="ppCabeceraExpedienteActa"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active"
+                           id="primerTabActa"
+                           data-toggle="tab"
+                           href="#solEncabezado"
+                           role="tab"
+                           aria-selected="true">
+                            <span class="fa fa-home">
+                            </span>
+                            Encabezado
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           data-toggle="tab"
+                           href="#solOferta"
+                           role="tab"
+                           aria-selected="true">
+                            <span class="fa fa-fw fa-dollar-sign">
+                            </span>
+                            Ofertas
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           data-toggle="tab"
+                           href="#solCierre"
+                           role="tab"
+                           aria-selected="true">
+                            <span class="fa fa-fw fa-list-ul">
+                            </span>
+                            Cierre
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content" style="width: 100%;">
+                    <div class="tab-pane active" id="solEncabezado" role="tabpanel">
+                        <div class="col-xs-12">
+                            <div class="panel panel-info">
+                                <div class="panel-body">
+                                    <div class="row" style="margin-top: 10px;">
+                                        <div class="col-md-12">
+                                            <div class="card card-outline card-info">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">
+                                                        Encabezado
+                                                    </h3>
+                                                </div>
+                                                <!-- /.card-header -->
+                                                <div class="card-body" style="padding: 0px!important">
+                                                    <textarea id="txtPopupEncabezado" style="height: 100px !important;">
+
+                                                    </textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.col-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="solOferta" role="tabpanel">
+                        <div class="col-xs-12">
+                            <div class="panel panel-info">
+                                <div class="panel-body">
+                                    <div class="row" style="margin-top: 10px;">
+                                        <div class="col-md-12">
+                                            <div class="card card-outline card-info">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">
+                                                        Parte Oferta
+                                                    </h3>
+                                                </div>
+                                                <!-- /.card-header -->
+                                                <div class="card-body" style="padding: 0px!important">
+                                                    <textarea id="txtPopupOferta2">
+
+                                                    </textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.col-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="solCierre" role="tabpanel">
+                        <div class="col-xs-12">
+                            <div class="panel panel-info">
+                                <div class="panel-body" style="margin-bottom:10px !important; padding-top:0px !important">
+                                    <div class="row" style="margin-top: 10px;">
+                                        <div class="col-md-12">
+                                            <div class="card card-outline card-info">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">
+                                                        Cierre
+                                                    </h3>
+                                                </div>
+                                                <!-- /.card-header -->
+                                                <div class="card-body" style="padding: 0px!important">
+                                                    <textarea id="txtPopupCierre">
+
+                                                    </textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.col-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 5px;" id="divBotoneraPopupObra">
+                <button class="btn btn-danger" id="btnCerrarPopupActa" style="margin-left: 1%;">Cerrar</button>
+                <button class="btn btn-success" id="btnGuardarPopupActa" style="color:white;margin-left: 1%;">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" value="0" id="idObraActa" />
+@section Scripts {
+}
+
+<script>
+
+    function mostrarPopupActa(idObra) {
+        $('#modal-popup-Acta').css("display", "block");
+        vaciarDatosActa();
+        cargarInfoActaEncabezado(idObra);
+        cargarInfoActaFormal(idObra);
+        $('#idObraActa').val(idObra);
+    }
+    function editarPopupActa(idObra) {
+        $('#modal-popup-Acta').css("display", "block");
+        vaciarDatosActa();
+        cargarEdicionActa(idObra);
+        $('#idObraActa').val(idObra);
+    }
+
+    function cargarInfoActaEncabezado(idObra) {
+        var urltmp = "/api/Acta/BuscarGenerica?idActa=1" + "&idObra=" + idObra;
+        fetch(urltmp, { method: "GET" })
+            .catch(() => {
+                alert('Ocurrio un error');
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                $('#ppCabeceraObraActa').text(data.nombreObra);
+                $('#ppCabeceraExpedienteActa').text(data.nroExpediente);
+                $("#txtPopupEncabezado").summernote('editor.pasteHTML', data.textoEncabezado);
+                //$('#ppCabeceraExpediente').text(data.replay.nroExpediente);
+                //$('#txtPpDescripcion').val(data.replay.descripcion);
+            })
+    }
+    function cargarInfoActaFormal(idObra) {
+        var urltmp = "/api/Acta/BuscarFormal?idActa=1" + "&idObra=" + idObra;
+        fetch(urltmp, { method: "GET" })
+            .catch(() => {
+                alert('Ocurrio un error');
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                $("#txtPopupOferta2").summernote('code', data.textoOferta);
+                //$("#txtPopupOferta1").summernote('editor.pasteHTML', data.textoFormal);
+                $("#txtPopupCierre").summernote('code', data.textoCierre);
+            })
+    }
+
+    function vaciarDatosActa() {
+        $('#ppCabeceraObraActa').text('');
+        $('#ppCabeceraExpedienteActa').text('');
+        /* $('#ppCabeceraCaratula').text('');*/
+        //$('#txtPopupOferta1').summernote('reset');
+        $('#txtPopupCierre').summernote('reset');
+        $('#txtPopupEncabezado').summernote('reset');
+        $('#txtPopupOferta2').summernote('reset');
+        $('#idObraActa').val('0');
+    }
+
+    function grabarActa() {
+        var urlGrabar = "/api/Acta/GrabarActaObra";
+        fetch(urlGrabar, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idObra: $('#idObraActa').val(),
+                //textoFormal: $('#txtPopupOferta1').val(),
+                textoOferta: $('#txtPopupOferta2').val(),
+                textoCierre: $('#txtPopupCierre').val(),
+                textoEncabezado: $('#txtPopupEncabezado').val(),
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                //alert(data);
+                //if (data != 0) {
+                //    console.log(data);
+                //    window.location.href = '/api/Acta/DescargarArchivo?idObra=' + $('#idObraActa').val() + '&idCategoria=1';
+                //    $('#idObraActa').val(0);
+                //}
+                //else {
+                //    alert('Se produjo un error al grabar el acta');
+                //}
+
+                window.location.href = '/api/Acta/DescargarArchivo?idObra=' + $('#idObraActa').val() + '&idCategoria=1';
+                $('#idObraActa').val(0);
+
+            })
+            .catch(error => {
+                // Logica Error
+                console.log('Error')
+                alert('Error');
+                console.log(error)
+            })
+    }
+    function imprimirActa(idObra) {
+        var urltmp = "/api/Acta/ImprimirActa?idObra=" + idObra;
+        fetch(urltmp, { method: "GET" })
+            .catch(() => {
+                alert('Ocurrio un error');
+            })
+            .then(res => res.json())
+            .then(data => {
+                window.location.href = '/api/Acta/DescargarArchivo?idObra=' + idObra + '&idCategoria=1';
+            })
+    }
+
+    function cargarEdicionActa(idObra) {
+        var urltmp = "/api/Acta/EditarActa?idObra=" + idObra;
+        fetch(urltmp, { method: "GET" })
+            .catch(() => {
+                alert('Ocurrio un error');
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                $('#ppCabeceraObraActa').text(data.nombreObra);
+                $('#ppCabeceraExpedienteActa').text(data.nroExpediente);
+                $("#txtPopupEncabezado").summernote('editor.pasteHTML', data.textoEncabezado);
+                $("#txtPopupCierre").summernote('editor.pasteHTML', data.textoCierre);
+                $("#txtPopupOferta2").summernote('editor.pasteHTML', data.textoOferta);
+            })
+    }
+</script>

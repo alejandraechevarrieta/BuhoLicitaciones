@@ -1,0 +1,1210 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using System.Web.Optimization
+@using System.Web.Mvc.Html;
+
+@{
+    var idEmpresa2 = Session["idEmpresa"];
+}
+<title>Listado Licitaciones</title>
+
+<!-- Select2 -->
+<link rel="stylesheet" href="~/AdminLte/plugins/select2/css/select2.min.css">
+<link rel="stylesheet" href="~/AdminLte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+
+<style>
+    .dataTables_length {
+        display: none !important;
+    }
+
+    .d-hotline {
+        color: #ffffff !important;
+        border-color: transparent #dc213c transparent transparent;
+    }
+
+        .d-hotline.h-btn #chat-icon {
+            border-radius: 6px 6px 6px 2px;
+            height: 17px;
+            left: 32%;
+            position: absolute;
+            top: 37%;
+            width: 38%;
+        }
+
+        .d-hotline.h-btn #chat-icon {
+            border-radius: 6px 6px 6px 2px;
+            height: 17px;
+            left: 32%;
+            position: absolute;
+            top: 37%;
+            width: 38%;
+        }
+
+    #chat-icon {
+        background: #ffffff !important;
+    }
+    .chatImage {
+        z-index: 9999;
+        position: fixed; /* Fijar el contenedor en la pantalla */
+        top: 74%; /* Posicionar en la mitad vertical */
+        transform: translate(-28%, -55%); /* Centrar el contenedor */
+       
+    }
+</style>
+<div class="container-fluid" style="font-size: smaller !important;">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item active">Licitaciones</li>
+    </ol>
+
+    <div class="modal modal-default" id="modal-popup-Obra" style="display: none!important; margin-top: 0%;">
+        @Html.Partial("_detalleObraEmpresa")
+    </div>
+    <div class="modal modal-default" id="modal-popup-Termino" style="display: none!important; margin-top: 0%;">
+        <div class="modal-dialog" style="margin-left: 25%;margin-top: 1%; margin-right: 5%;max-width: 60%!important;" id="modal-obra">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="panel-body">
+                        <div class="row" style="margin-bottom: 0%;">
+                            <div class="col-md-12" style="margin-top:1%;">
+                                <label>Para Enviar la oferta debe aceptar los términos y condiciones</label>
+                                <p>
+                                    Por la presente declaro bajo juramento conocer y aceptar el contenido de la documentación del pliego
+                                    licitatorio de referencia, circulares y toda la documentación de este llamado y haber tomado conocimiento
+                                    de la información necesaria sobre todos los elementos para formular la Propuesta en base a los documentos
+                                    que integran la licitación, con pleno conocimiento de los costos que incidirán en los precios cotizados y
+                                    la información necesaria sobre todos los elementos indispensables para formular la propuesta.
+                                </p>
+                                <p>
+                                    Por la presente declaro bajo fe de juramento la veracidad de los datos consignados en la documentación
+                                    digital presentada en la Propuesta.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 0%;">
+                            <div class="col-1" style="padding-left: 5%;">
+                                <input type="checkbox" class="form-control" id="chkPopupAceptoTermino" style="width: 75%;" />
+                            </div>
+                            <div class="col-10">
+                                <label style="margin-top: 1%;">Acepto términos y condiciones</label>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 0%;">
+                            <div class="col-6" style="padding-left: 5%;">
+                                <label>Ratifique o Rectifique el mail donde recibirá las notificaciones</label>
+                            </div>
+                            <div class="col-4">
+                                <input type="text"
+                                       id="txtPopupMailEmpresa"
+                                       style="font-size: smaller !important;" />
+                            </div>
+                            <input type="hidden" id="idObraTermino" value="0" />
+                        </div>
+                        <div class="row" style="margin-bottom: 0%;">
+                            <div class="col-6" style="padding-left: 5%;">
+                                <label>Ingrese otro mail si quiere recibir una copia</label>
+                            </div>
+                            <div class="col-4">
+                                <input type="text"
+                                       id="txtPopupMailCopiaEmpresa"
+                                       style="font-size: smaller !important;" />
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 5px;" id="divBotoneraPopupObra">
+                            <button class="btn btn-danger" id="btnCerrarPopupTermino" style="margin-left: 1%;">Cerrar</button>
+                            <button class="btn btn-success" id="btnGuardarPopupTermino" disabled style="color:white;margin-left: 1%;">Enviar</button>
+                            <button class="btn btn-warning" id="btnDescargarPopupComp" disabled style="color:white;margin-left: 1%;">Descargar Comprobante</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="commentModal" class="modal modal-default" style="display: none!important; margin-top: 0%;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Deja tu comentario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar" onclick="cerrarModalChatbot()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="commentText" class="form-control" placeholder="Escribe tu comentario aquí"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cerrarModalChatbot()">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="enviarComentario()">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3 form-group">
+            <label>Expediente</label>
+            <input type="text"
+                   class="form-control"
+                   id="txtNroExpediente"
+                   style="font-size: smaller !important;"
+                   placeholder="Nro Expediente">
+        </div>
+        <div class="col-3 form-group">
+            <label>Obra</label>
+            <input type="text"
+                   class="form-control"
+                   id="txtNombreObra"
+                   style="font-size: smaller !important;"
+                   placeholder="Nombre de Obra">
+        </div>
+        <div class="col-3 form-group">
+            <label for="exampleInputEmail1">Publicación</label>
+            <input type="date"
+                   class="form-control pull-left ui-datepicker"
+                   style="font-size: smaller !important;"
+                   id="txtFechaPublic">
+        </div>
+        <div class="col-3 form-group">
+            <label>Organismo</label>
+            <select id="selectOrganismo"
+                    class="form-control select2bs4">
+            </select>
+        </div>
+        <div class="col-3 form-group">
+            <label for="exampleInputEmail1">Monto</label>
+            <input type="number"
+                   class="form-control pull-left ui-datepicker"
+                   style="font-size: smaller !important;"
+                   id="txtMonto">
+        </div>
+        <div class="col-3 form-group">
+            <label for="exampleInputEmail1">Favoritos</label>
+            <select id="selectFavoritos"
+                    style="font-size: smaller !important;"
+                    class="form-control">
+                <option value="0">Todos</option>
+                <option value="1">Solo Favoritos</option>
+            </select>
+        </div>
+        <div class="col-3 form-group">
+            <label>Etapa</label>
+            <select id="selectEtapa"
+                    class="form-control select2bs4">
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <button type="button"
+                    class=" btn btn-block btn-success"
+                    id="btnBuscar"
+                    style="font-size:smaller !important">
+                Buscar
+            </button>
+        </div>
+        <div class="col-2">
+            <button type="button"
+                    class=" btn btn-block btn-primary"
+                    id="btnLimpiar"
+                    style="font-size:smaller !important">
+                Limpiar Filtros
+            </button>
+        </div>
+        <div class="col-2">
+            <button type="button"
+                    class="btn btn-block btn-secondary"
+                    id="btnExportar"
+                    style="font-size:smaller !important">
+                Exportar
+            </button>
+        </div>
+    </div>
+
+    <div class="box-header with-border">
+        <div class="row" style="margin-top: 1%;">
+            <div class="col-12">
+                <div class="card">
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="tablaObra" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Nombre</th>
+                                    <th class="text-center">Expediente</th>
+                                    <th class="text-center">Etapa</th>
+                                    <th class="text-center">Publicacion</th>
+                                    <th class="text-center">Apertura</th>
+                                    <th class="text-center">Organismo</th>
+                                    <th class="text-center">Presupuesto Oficial</th>
+                                    <th class="text-center">Oferta</th>
+                                    <th class="text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <div class="row">
+        <div class="col-8">
+
+        </div>
+        <div class="col-3">
+            <div id="modal-popup-mensaje" style="display: none;">
+                @Html.Partial("~/Areas/Licitacion/Views/Shared/Chatbot/_Ventana.cshtml")
+                @*<div>
+                        <span class="pull-right-container">
+                            <small class="label pull-right bg-primary blink"
+                                   onclick="mostrarMensaje2();"
+                                   style="padding: 0.2em 0.6em 0.3em; font-weight: 700; border-radius: 0.5em; background-color: blue !important; cursor: pointer;">
+                                <label style="width: 300px; cursor: pointer;" onclick="mostrarMensaje2();">Necesita ayuda con RACOP</label>
+                            </small>
+                        </span>
+                    </div>
+                    <div>
+                        <span class="pull-right-container">
+                            <small class="label pull-right bg-primary blink"
+                                   onclick="mostrarMensaje3();"
+                                   style="padding: 0.2em 0.6em 0.3em; font-weight: 700;border-radius: 0.5em; background-color:blue !important;cursor: pointer;margin-top:3px;">
+                                <label style="width: 300px; cursor: pointer;" onclick="mostrarMensaje3();">Necesita ayuda con LICITACIONES</label>
+                            </small>
+                        </span>
+                    </div>
+                    <div>
+                        <span class="pull-right-container">
+                            <small class="label pull-right bg-primary blink"
+                                   onclick="cerrarRobot();"
+                                   style="padding: 0.2em 0.6em 0.3em; font-weight: 700;border-radius: 0.5em; background-color:red !important;cursor: pointer;margin-top:3px;">
+                                <label style="width: 300px; cursor: pointer;" onclick="cerrarRobot();">Cerrar</label>
+                            </small>
+                        </span>
+                    </div>*@
+
+            </div>
+            <div id="modal-popup-mensaje2" style="display: none;">
+                <div>
+                    <span class="pull-right-container">
+                        <small class="label pull-right bg-primary blink"
+                               onclick="helpLogueoRacop();"
+                               style="padding: 0.2em 0.6em 0.3em; font-weight: 700; border-radius: 0.5em; background-color: blue !important; cursor: pointer;">
+                            <label style="width: 300px; cursor: pointer;" onclick="helpLogueoRacop();">¿Cómo me logueo en la aplicación de RACOP?</label>
+                        </small>
+                    </span>
+                </div>
+                <div>
+                    <span class="pull-right-container">
+                        <small class="label pull-right bg-primary blink"
+                               onclick="helpRegistroRacop();"
+                               style="padding: 0.2em 0.6em 0.3em; font-weight: 700;border-radius: 0.5em; background-color:blue !important;cursor: pointer;margin-top:3px;">
+                            <label style="width: 300px; cursor: pointer;" onclick="helpRegistroRacop();">¿Qué pasa si todavía no estoy registrado?</label>
+                        </small>
+                    </span>
+                </div>
+                <div>
+                    <span class="pull-right-container">
+                        <small class="label pull-right bg-primary blink"
+                               onclick="helpPasswordRacop();"
+                               style="padding: 0.2em 0.6em 0.3em; font-weight: 700;border-radius: 0.5em; background-color:blue !important;cursor: pointer;margin-top:3px;">
+                            <label style="width: 300px; cursor: pointer;" onclick="helpPasswordRacop();">He olvidado la contraseña</label>
+                        </small>
+                    </span>
+                </div>
+                <div>
+                    <span class="pull-right-container">
+                        <small class="label pull-right bg-primary blink"
+                               onclick="helpInstructivoRacop();"
+                               style="padding: 0.2em 0.6em 0.3em; font-weight: 700;border-radius: 0.5em; background-color:blue !important;cursor: pointer;margin-top:3px;">
+                            <label style="width: 300px; cursor: pointer;" onclick="helpInstructivoRacop();">¿Dónde puedo descargar el instructivo?</label>
+                        </small>
+                    </span>
+                </div>
+                <div>
+                    <span class="pull-right-container">
+                        <small class="label pull-right bg-primary blink"
+                               onclick="cerrarRobot();"
+                               style="padding: 0.2em 0.6em 0.3em; font-weight: 700;border-radius: 0.5em; background-color:red !important;cursor: pointer;margin-top:3px;">
+                            <label style="width: 300px; cursor: pointer;" onclick="cerrarRobot();">Cerrar</label>
+                        </small>
+                    </span>
+                </div>
+            </div>
+            <div id="modal-popup-mensajeLogueoRacop" style="display: none;">
+                <div>
+                    <span class="pull-right-container">
+                        <small class="label pull-right bg-primary blink"
+                               style="padding: 0.2em 0.6em 0.3em; font-weight: 700; border-radius: 0.5em; background-color: #28a745 !important; cursor: pointer;">
+                            <label style="width: 300px;">
+                                Para loguearse en el módulo de la RACOP, por favor ingrese <a href="https://buhogestion.mendoza.gov.ar/racop"> <b> aqui </b></a>e ingrese sus credenciales
+                            </label>
+                        </small>
+                    </span>
+                </div>
+                <div>
+                    <span class="pull-right-container">
+                        <small class="label pull-right bg-primary blink"
+                               onclick="cerrarRobot();"
+                               style="padding: 0.2em 0.6em 0.3em; font-weight: 700;border-radius: 0.5em; background-color:red !important;cursor: pointer;margin-top:3px;">
+                            <label style="width: 300px; cursor: pointer;" onclick="cerrarRobot();">Cerrar</label>
+                        </small>
+                    </span>
+                </div>
+            </div>
+            <div id="modal-popup-mensajeRegistroRacop" style="display: none;">
+                <div>
+                    <span class="pull-right-container">
+                        <small class="label pull-right bg-primary blink"
+                               style="padding: 0.2em 0.6em 0.3em; font-weight: 700; border-radius: 0.5em; background-color: #28a745 !important; cursor: pointer;">
+                            <label style="width: 300px;">
+                                Para registrar la empresa, en la pantalla de login encontramos la pregunta ¿Todavía la empresa no está registrada? En esa opción cargamos los datos
+                                generales de la empresa y del usuario administrador de la cuenta. Por mail le llegarán los datos de acceso al sistema
+                            </label>
+                        </small>
+                    </span>
+                </div>
+                <div>
+                    <span class="pull-right-container">
+                        <small class="label pull-right bg-primary blink"
+                               onclick="cerrarRobot();"
+                               style="padding: 0.2em 0.6em 0.3em; font-weight: 700;border-radius: 0.5em; background-color:red !important;cursor: pointer;margin-top:3px;">
+                            <label style="width: 300px; cursor: pointer;" onclick="cerrarRobot();">Cerrar</label>
+                        </small>
+                    </span>
+                </div>
+            </div>
+            <div id="modal-popup-mensajePasswordRacop" style="display: none;">
+                <div>
+                    <span class="pull-right-container">
+                        <small class="label pull-right bg-primary blink"
+                               style="padding: 0.2em 0.6em 0.3em; font-weight: 700; border-radius: 0.5em; background-color: #28a745 !important; cursor: pointer;">
+                            <label style="width: 300px;">
+                                En la pantalla de login encontramos la pregunta ¿Has olvidado la contrseña? En esa opción registraremos el cuil y el correo declarado y nos
+                                llegará un email con los pasos para restaurar la contraseña
+                            </label>
+                        </small>
+                    </span>
+                </div>
+                <div>
+                    <span class="pull-right-container">
+                        <small class="label pull-right bg-primary blink"
+                               onclick="cerrarRobot();"
+                               style="padding: 0.2em 0.6em 0.3em; font-weight: 700;border-radius: 0.5em; background-color:red !important;cursor: pointer;margin-top:3px;">
+                            <label style="width: 300px; cursor: pointer;" onclick="cerrarRobot();">Cerrar</label>
+                        </small>
+                    </span>
+                </div>
+            </div>
+            <div id="modal-popup-mensajeInstructivoRacop" style="display: none;">
+                <div>
+                    <span class="pull-right-container">
+                        <small class="label pull-right bg-primary blink"
+                               style="padding: 0.2em 0.6em 0.3em; font-weight: 700; border-radius: 0.5em; background-color: #28a745 !important; cursor: pointer;">
+                            <label style="width: 300px;">
+                                Descargue el instructivo desde  <a href="https://buhogestion.mendoza.gov.ar/Certificados/IT-DGCG-MIPIP-01(EnRevisi%C3%B3n).pdf" target="_blank"> <b> aqui </b></a>
+                            </label>
+                        </small>
+                    </span>
+                </div>
+                <div>
+                    <span class="pull-right-container">
+                        <small class="label pull-right bg-primary blink"
+                               onclick="cerrarRobot();"
+                               style="padding: 0.2em 0.6em 0.3em; font-weight: 700;border-radius: 0.5em; background-color:red !important;cursor: pointer;margin-top:3px;">
+                            <label style="width: 300px; cursor: pointer;" onclick="cerrarRobot();">Cerrar</label>
+                        </small>
+                    </span>
+                </div>
+            </div>
+            <div id="modal-popup-mensaje3" style="display:none;">
+                <div>
+                    <span class="pull-right-container" onclick="helpInstructivoLic();" style="margin-top: 1%;">
+                        <small class="label pull-right bg-primary blink"
+                               style="padding: 0.2em 0.6em 0.3em; font-weight: 700;border-radius: 0.5em; background-color:blue !important; cursor: pointer;">
+                            <label id="lblLayCdad" style="width: 300px;cursor:pointer" onclick="helpInstructivoLic()">¿Dónde puedo descargar el instructivo?</label>
+                        </small>
+                    </span>
+                </div>
+            </div>
+            <div id="modal-popup-mensajeInstructivoLic" style="display: none;">
+                <div>
+                    <span class="pull-right-container">
+                        <small class="label pull-right bg-primary blink"
+                               style="padding: 0.2em 0.6em 0.3em; font-weight: 700; border-radius: 0.5em; background-color: #28a745 !important; cursor: pointer;">
+                            <label style="width: 300px;">
+                                Descargue el instructivo desde  <a href="https://buhogestion.mendoza.gov.ar/Certificados/IT-DGCG-MIPIP-01(EnRevisi%C3%B3n).pdf" target="_blank"> <b> aqui </b></a>
+                            </label>
+                        </small>
+                    </span>
+                </div>
+                <div>
+                    <span class="pull-right-container">
+                        <small class="label pull-right bg-primary blink"
+                               onclick="cerrarRobot();"
+                               style="padding: 0.2em 0.6em 0.3em; font-weight: 700;border-radius: 0.5em; background-color:red !important;cursor: pointer;margin-top:3px;">
+                            <label style="width: 300px; cursor: pointer;" onclick="cerrarRobot();">Cerrar</label>
+                        </small>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="d-hotline h-btn animated zoomIn faster"
+                 tabindex="0"
+                 role="button"
+                 data-ember-action=""
+                 data-ember-action-4="4">
+                <div id="divCantidadConsulta" style="display:none;cursor:pointer;">
+                    <span class="pull-right-container" onclick="mostrarMensaje();" style="cursor:pointer;">
+                        <small class="label pull-right bg-primary blink"
+                               style="padding: 0.2em 0.6em 0.3em; font-size:75%; font-weight: 700;border-radius: 0.5em; background-color:crimson !important;">
+                            <label id="lblLayCdad" style="width: 150px;">Respondieron a su mensaje</label>
+                        </small>
+                    </span>
+                </div>
+                <div class="image" id="btnChat" onclick="mostrarMensaje();">
+                    <img src="/AdminLte/dist/img/robot2.png" class="img-circle elevation-2" alt="Chat" width="90">
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="idEmpresa" value="0" />
+</div>
+<div class="modal" id="modalExportar" style="display: none!important; margin-top: 1%;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-md-10 offset-1" style="text-align:center; font-style:inherit">
+                        <b>¿Qué campos desea imprimir?</b>
+                    </div><div></div>
+                    <div class="form-group col-md-10 offset-1">
+                        <div class="checkbox">
+                            <input type="checkbox" id="todosI" onclick="marcarTodos()">
+                            Todos
+                        </div>
+                    </div>
+                    <div class="form-group col-md-10 offset-1">
+                        <div class="checkbox">
+                            <input type="checkbox" id="nombreObraI">
+                            Nombre de Obra
+                        </div>
+                    </div>
+                    <div class="form-group col-md-10 offset-1">
+                        <div class="checkbox">
+                            <input type="checkbox" id="expedienteI">
+                            Expediente
+                        </div>
+                    </div>
+                    <div class="form-group col-md-10 offset-1">
+                        <div class="checkbox">
+                            <input type="checkbox" id="publicacionI">
+                            Fecha Publicación
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-10 offset-1">
+                        <div class="checkbox">
+                            <input type="checkbox" id="organismoI">
+                            Organismo
+                        </div>
+                    </div>
+                    <div class="form-group col-md-10 offset-1">
+                        <div class="checkbox">
+                            <input type="checkbox" id="montoI">
+                            Monto
+                        </div>
+                    </div>
+                    <div class="form-group col-md-10 offset-1">
+                        <div class="checkbox">
+                            <input type="checkbox" id="etapaI">
+                            Etapa
+                        </div>
+                    </div>
+                    <div class="form-group col-md-10 offset-1">
+                        <div class="checkbox">
+                            <input type="checkbox" id="aperturaI">
+                            Fecha apertura
+                        </div>
+                    </div>
+                    <div class="form-group col-md-10 offset-1">
+                        <div class="checkbox">
+                            <input type="checkbox" id="ofertaI">
+                            Oferta
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3" style="margin-left: 20%">
+                        <button type="button"
+                                class="btn btn-block btn-success"
+                                id="expoCerrar"
+                                style="font-size:smaller !important">
+                            Cerrar
+                        </button>
+                    </div>
+                    <div class="col-3" style="margin-left: 5%">
+                        <button type="button"
+                                class="btn btn-block btn-secondary"
+                                id="expoImprimir"
+                                style="font-size:smaller !important">
+                            Exportar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Page specific script -->
+@section Scripts
+{
+    <!-- Select2 -->
+    <script src="~/AdminLte/plugins/select2/js/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="~/AdminLte/plugins/moment/moment.min.js"></script>
+    <script src="~/AdminLte/plugins/inputmask/jquery.inputmask.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables/jquery.dataTables.min.js"></script>
+    <link href="~/Content/DataTables2/datatables.min.css" rel="stylesheet" />
+
+    <script defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAt2jI1l4WNHLIxPoa4SA5X42eInw2NaOc&libraries=drawing&callback=initMap">
+    </script>
+
+    <script>
+        var lat = -32.8903;
+        var long = -68.8472;
+        $('#idEmpresa').val(@idEmpresa2);
+
+        function initMap(lat, long) {
+            // The location of Uluru
+            var uluru = { lat: lat, lng: long };
+            console.log(lat);
+            console.log(long);
+            // The map, centered at Uluru
+            var map = new google.maps.Map(
+                document.getElementById('map'), { zoom: 14, center: uluru });
+            // The marker, positioned at Uluru
+            var marker = new google.maps.Marker({ position: uluru, map: map });
+        }
+
+        $('.select2').select2();
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        });
+        //Datemask dd/mm/yyyy
+        $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+
+        configurarInicio();
+
+        function configurarInicio() {
+            loadOrganismo($('#selectOrganismo'), true);
+            loadEtapa($('#selectEtapa'), true);
+            //loadDepartamento($('#selectDepartamento'), true);
+            buscar();
+        };
+
+        function loadDepartamento(control, seleccionar) {
+            var select = control;
+            select.empty();
+
+            if (seleccionar) {
+                select.append($('<option/>', { value: '0', text: '--Seleccione--' }));
+            }
+
+            var urltmp = "/api/Departamento/Listar";
+            fetch(urltmp, { method: "GET" })
+                .catch(() => {
+                    alert('Ocurrio un error');
+                })
+                .then(res => res.json())
+                .then(data => {
+                    $.each(data.replay, function (index, result) {
+                        select.append($('<option/>', {
+                            value: result.id,
+                            text: result.nombre
+                        }));
+                    });
+                })
+        }
+        function loadOrganismo(control, seleccionar) {
+            var select = control;
+            select.empty();
+
+            if (seleccionar) {
+                select.append($('<option/>', { value: '0', text: '--Seleccione--' }));
+            }
+
+            var urltmp = "/api/Organismo/Listar";
+            fetch(urltmp, { method: "GET" })
+                .catch(() => {
+                    alert('Ocurrio un error');
+                })
+                .then(res => res.json())
+                .then(data => {
+                    $.each(data.replay, function (index, result) {
+                        select.append($('<option/>', {
+                            value: result.id,
+                            text: result.nombre
+                        }));
+                    });
+                })
+        }
+        function loadEtapa(control, seleccionar) {
+            var select = control;
+            select.empty();
+
+            if (seleccionar) {
+                select.append($('<option/>', { value: '0', text: '--Seleccione--' }));
+            }
+
+            var urltmp = "/api/Etapa/listarEtapaEmpresa";
+            fetch(urltmp, { method: "GET" })
+                .catch(() => {
+                    alert('Ocurrio un error');
+                })
+                .then(res => res.json())
+                .then(data => {
+                    $.each(data.replay, function (index, result) {
+                        select.append($('<option/>', {
+                            value: result.id,
+                            text: result.nombre
+                        }));
+                    });
+                })
+        }
+
+        function buscar() {
+            if ($('#idEmpresa').val() != 0) {
+                $('#tablaObra').DataTable().destroy();
+
+                var url = "/api/Empresa/listarObraEmpresa?";
+                url = url + "nroExpediente=" + $('#txtNroExpediente').val();
+                url = url + "&nombreObra=" + $('#txtNombreObra').val();
+                url = url + "&fechaPub=" + $('#txtFechaPublic').val();
+                url = url + "&idOrganismo=" + $('#selectOrganismo').val();
+                url = url + "&idEmpresa=" + $('#idEmpresa').val();
+                url = url + "&idFavoritos=" + $('#selectFavoritos').val();
+                url = url + "&idEtapa=" + $('#selectEtapa').val();
+
+                cargarTabla(url);
+            }
+            else {
+                window.location.href = "/racop";
+            }
+        };
+
+        function limpiarFiltros() {
+
+               $('#txtNroExpediente').val('');
+               $('#txtNombreObra').val('');
+               $('#txtFechaPublic').val('');
+               $('#selectOrganismo').val('');
+               //$('#idEmpresa').val('');
+               $('#selectFavoritos').val('');
+               $('#selectEtapa').val('');
+                configurarInicio();
+
+        };
+
+        function cargarTabla(url) {
+
+            var table = $("#tablaObra").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "stateSave": true,
+                "language": {
+                    "processing": "Procesando"
+                },
+                "scrollY": "500px",
+                "scrollCollapse": true,
+                "ajax": {
+                    "url": url,
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "pageLength": 50,
+                "filter": false,
+                "responsivePriority": 2, //define que columna es la que se estira
+                "data": null,
+                "columns": [
+                    {
+                        "data": "nombreObra", "name": "Nombre", "autoWidth": true,
+                        render: function (data, type, row, meta) {
+                            //return "<div onclick='mostrarPopup(" + row.idCliente + ")' style='cursor:pointer;'>" + data + "</div>"
+                            return "<div style='text-align: left;'>" + data + "</div>"
+                        }
+                    },
+                    {
+                        "data": "nroExpedienteString", "name": "Expediente", "autoWidth": true,
+                        render: function (data, type, row, meta) {
+                            return "<div style='text-align: left;'>" + data + "</div>"
+                        }
+                    },
+                    {
+                        "data": "nombreEtapa", "name": "Etapa", "autoWidth": true,
+                        render: function (data, type, row, meta) {
+                            if (row.idEtapa == 5) {
+                                return "<div style='text-align: center;'><span class='badge bg-danger' style='background-color: #00c0ef!important;'>" + data + "</span></div>"
+                            }
+                            else {
+                                if (row.idEtapa == 6) {
+                                    return "<div style='text-align: center;'><span class='badge bg-danger' style='background-color: #00a65a!important;'>" + data + "</span></div>"
+                                }
+                                else {
+                                    if (row.idEtapa == 7) {
+                                        return "<div style='text-align: center;'><span class='badge bg-danger' style='background-color: #5f2571!important;'>" + data + "</span></div>"
+                                    }
+                                    else {
+                                        if (row.idEtapa == 8) {
+                                            return "<div style='text-align: center;'><span class='badge bg-danger' style='background-color: #dd4b39!important;'>" + data + "</span></div>"
+                                        }
+                                        else {
+                                            if (row.idEtapa == 14) {
+                                                return "<div style='text-align: center;'><span class='badge bg-danger' style='background-color: #8fbc8f!important;'>" + data + "</span></div>"
+                                            }
+                                            else {
+                                                if (row.idEtapa == 15) {
+                                                    return "<div style='text-align: center;'><span class='badge bg-danger' style='background-color: #f39c12!important;'>" + data + "</span></div>"
+                                                }
+                                                else {
+                                                    if (row.idEtapa == 16) {
+                                                        return "<div style='text-align: center;'><span class='badge bg-danger' style='background-color: chocolate!important;'>" + data + "</span></div>"
+                                                    }
+                                                    else {
+                                                        return "<div style='text-align: center;'><span class='badge bg-danger' style='background-color: coral!important;'>" + data + "</span></div>"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "data": "fechaPublicacionString", "name": "Publicacion", "autoWidth": true,
+                        render: function (data, type, row, meta) {
+                            return "<div style='text-align: center;'>" + data + "</div>"
+                        }
+                    },
+                    {
+                        "data": "fechaAperturaString", "name": "Apertura", "autoWidth": true,
+                        render: function (data, type, row, meta) {
+                            return "<div style='text-align: center;'>" + data + "</div>"
+                        }
+                    },
+                    {
+                        "data": "nombreOrganismoString", "name": "Organismo", "autoWidth": true,
+                        render: function (data, type, row, meta) {
+                            return "<div style='text-align: center;'>" + data + "</div>"
+                        }
+                    },
+                    {
+                        "data": "montoObraString", "name": "Monto", "autoWidth": true,
+                        render: function (data, type, row, meta) {
+                            return "<div style='text-align: center;'>" + data + "</div>"
+                        }
+                    },
+                    {
+                        "data": "estadoOferta", "name": "Oferta", "autoWidth": true,
+                        render: function (data, type, row, meta) {
+                            if (row.estadoOferta == 0) {
+                                return "<div style='text-align: center;'><span class='badge bg-danger' style='background-color: #dd4b39!important;'>No Presentada</span></div>"
+                            }
+                            else {
+                                if (row.estadoOferta == 1) {
+                                    return "<div style='text-align: center;'><span class='badge bg-danger' style='background-color: #00a65a!important;'>Presentada</span></div>"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "data": "accion", "name": "Acciones", "autoWidth": true,
+                        render: function (data, type, row, meta) {
+                            if (row.idFavorito == 1) {
+                                return "<div style='text-align: center;'><i class='fas fa-upload' title='Subir Oferta' style='text-align: center;cursor:pointer; color: green;' onclick='cargarNroObra(" + row.idObra + ")'></i>&nbsp;&nbsp;<i class='fas fa-star' title='Marcar/Desmarcar Favorita' style='text-align: center;cursor:pointer; color: burlywood;' onclick='marcarFavorito(" + row.idObra + ")'></i>&nbsp;&nbsp;<i class='fas fa-file-pdf' title='Descargar Ficha' style='text-align: center;cursor:pointer; color: coral;'  onclick='imprimirFicha(" + row.idObra + ")'></i></div>"
+                            }
+                            else {
+                                return "<div style='text-align: center;'><i class='fas fa-upload' title='Subir Oferta' style='text-align: center;cursor:pointer; color: green;' onclick='cargarNroObra(" + row.idObra + ")'></i>&nbsp;&nbsp;<i class='fas fa-star' title='Marcar/Desmarcar Favorita' style='text-align: center;cursor:pointer; color: gray;' onclick='marcarFavorito(" + row.idObra + ")'></i>&nbsp;&nbsp;<i class='fas fa-file-pdf' title='Descargar Ficha' style='text-align: center;cursor:pointer; color: coral;'  onclick='imprimirFicha(" + row.idObra + ")'></i></div>"
+                            }
+                        }
+                    },
+                ],
+            });
+        }
+
+        $('#btnBuscar').click(function () {
+            buscar();
+        });
+        $('#btnLimpiar').click(function () {
+            limpiarFiltros();
+        });
+
+
+        $(document).on('keypress', function (e) {
+            if (e.which == 13) {
+                buscar();
+            }
+        });
+
+        function cargarNroObra(idObra) {
+            $('#idObra').val(idObra);
+            mostrarPopup(idObra);
+        }
+
+        function marcarFavorito(idObra) {
+            grabarFavorito(idObra);
+        }
+        function grabarFavorito(idObra) {
+            console.log('Grabar Datos');
+            var value = 0;
+            var urlGrabar = "/api/Empresa/marcarFavorita";
+            fetch(urlGrabar, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    idObra: idObra,
+                    idEmpresa: $('#idEmpresa').val(),
+                    idFavorito: 1
+                })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    buscar();
+                    alert('Se marcó/desmarcó la obra como favorita');
+                    console.log('Exito')
+                })
+                .catch(error => {
+                    // Logica Error
+                    console.log('Error')
+                    console.log(error)
+                })
+            return value;
+        }
+
+        $('#btnCerrarPopupObra').click(function () {
+            $('#modal-popup-Obra').css("display", "none");
+        });
+        $('#btnEnviarPopupObra').click(function () {
+            $('#idObraTermino').val($('#idObra').val());
+            $('#modal-popup-Obra').css("display", "none");
+            cargarEmailEmpresa();
+            $('#modal-popup-Termino').css("display", "block");
+        });
+        $('#btnGuardarPopupTermino').click(function () {
+            //$('#modal-popup-Termino').css("display", "none");
+            $('#btnDescargarPopupComp').prop("disabled", false);
+            alert("la oferta ha sido enviada");
+            grabarEmailEmpresa();
+            enviarOferta();
+            $('#idObraTermino').val(0);
+        });
+        $('#btnCerrarPopupTermino').click(function () {
+            $('#modal-popup-Termino').css("display", "none");
+        });
+        $('#chkPopupAceptoTermino').change(function () {
+            if ($('#chkPopupAceptoTermino').is(":checked")) {
+                $('#btnGuardarPopupTermino').prop("disabled", false);
+            }
+            else {
+                $('#btnGuardarPopupTermino').prop("disabled", true);
+            }
+        });
+
+        $('#btnDescargarPopupComp').click(function () {
+            descargarOferta();
+            $('#modal-popup-Termino').css("display", "none");
+            $('#btnDescargarPopupComp').prop("disabled", true);
+        });
+        function verPliego() {
+            //window.location.href = $('#txtPpUrlPliego').val();
+            window.open('https://' + $('#txtPpUrlPliego').val());
+        }
+
+        function verApertura() {
+            window.open('https://' + $('#txtPpAperturaVirtual').val());
+        }
+
+        $('#selectPpSobre').change(function () {
+            loadRequisitoPopup();
+            cargarTablaRequisitoObra();
+        });
+        $('#selectPpSobreObs').change(function () {
+            loadRequisitoPopupObs();
+            cargarTablaRequisitoObraObs();
+        });
+        $(function () {
+            $("html").on("dragover", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $("h1").text("Drag here");
+            });
+
+            $("html").on("drop", function (e) { e.preventDefault(); e.stopPropagation(); });
+
+            $('.upload-area').on('dragenter', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                $("h1").text("Drop");
+            });
+
+            // Drag
+            $('.upload-area').on('dragover', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                $("h1").text("Drop");
+            });
+
+            // Drop
+            $('.upload-area').on('drop', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+
+                $("#ppMensajeArchivo").text("Subiendo Archivo");
+                $("#ppMensajeArchivo").toggleClass('bg-blue bg-gradient-orange');
+                $("#ppMensajeArchivoObs").text("Subiendo Archivo");
+                $("#ppMensajeArchivoObs").toggleClass('bg-blue bg-gradient-orange');
+
+                var file = e.originalEvent.dataTransfer.files;
+                //var fd = new FormData();
+
+                $("#file").prop("files", e.originalEvent.dataTransfer.files);
+                //fd.append('file', file[0]);
+                uploadData(file);
+                $("#fileObs").prop("files", e.originalEvent.dataTransfer.files);
+                //fd.append('file', file[0]);
+                uploadDataObs(file);
+            });
+
+            // Abrir seleccionar un archivo
+            $("#uploadfile").click(function () {
+                $("#file").click();
+            });
+            $("#uploadfileObs").click(function () {
+                $("#fileObs").click();
+            });
+            // Archivo Seleccionado
+            $("#file").change(function () {
+                var fd = new FormData();
+
+                var files = $('#file')[0].files[0];
+
+                fd.append('file', files);
+
+                uploadData(fd);
+            });
+            // Archivo Seleccionado
+            $("#fileObs").change(function () {
+                var fd = new FormData();
+
+                var files = $('#fileObs')[0].files[0];
+
+                fd.append('fileObs', files);
+
+                uploadDataObs(fd);
+            });
+        });
+
+        function mostrarMensaje() {
+            $('#modal-popup-mensaje').css("display", "block");
+            $('#modal-popup-mensaje3').css("display", "none");
+            $('#modal-popup-mensaje2').css("display", "none");
+
+            var imageContainer = document.querySelector(".image");
+            imageContainer.classList.add("chatImage");
+        };
+        function mostrarMensaje2() {
+            $('#modal-popup-mensaje').css("display", "none");
+            $('#modal-popup-mensaje3').css("display", "none");
+            $('#modal-popup-mensaje2').css("display", "block");
+        };
+        function mostrarMensaje3() {
+            $('#modal-popup-mensaje').css("display", "none");
+            $('#modal-popup-mensaje2').css("display", "none");
+            $('#modal-popup-mensaje3').css("display", "block");
+        };
+        function cerrarRobot() {
+            $('#modal-popup-mensaje').css("display", "none");
+            $('#modal-popup-mensaje2').css("display", "none");
+            $('#modal-popup-mensaje3').css("display", "none");
+            $('#modal-popup-mensajeLogueoRacop').css("display", "none");
+            $('#modal-popup-mensajeRegistroRacop').css("display", "none");
+            $('#modal-popup-mensajePasswordRacop').css("display", "none");
+            $('#modal-popup-mensajeInstructivoRacop').css("display", "none");
+        };
+        function helpLogueoRacop() {
+            $('#modal-popup-mensaje2').css("display", "none");
+            $('#modal-popup-mensajeLogueoRacop').css("display", "block");
+        };
+        function helpRegistroRacop() {
+            $('#modal-popup-mensaje2').css("display", "none");
+            $('#modal-popup-mensajeRegistroRacop').css("display", "block");
+        };
+        function helpPasswordRacop() {
+            $('#modal-popup-mensaje2').css("display", "none");
+            $('#modal-popup-mensajePasswordRacop').css("display", "block");
+        };
+        function helpInstructivoRacop() {
+            $('#modal-popup-mensaje2').css("display", "none");
+            $('#modal-popup-mensajeInstructivoRacop').css("display", "block");
+        };
+        function helpInstructivoLic() {
+            $('#modal-popup-mensaje3').css("display", "none");
+            $('#modal-popup-mensajeInstructivoRacop').css("display", "block");
+        };
+
+        function imprimirFicha(idObra) {
+            //var urlMasiva = '/api/Licitacion/ImprimirFicha?idObra=' + idObra;
+            var urlMasiva = 'https://buhogestion.mendoza.gov.ar/Proyect/VistaResumen?id=' + idObra;
+            //window.open(window.location.href = urlMasiva, '_blank');
+            window.open(urlMasiva, '_blank', 'noopener, noreferrer');
+
+            //window.location.href = urlMasiva;
+        }
+        $('#expoImprimir').click(function () {
+            buscarObraParaReporte();
+        });
+        $('#btnExportar').click(function () {
+            $('#modalExportar').show();
+        });
+        $('#expoCerrar').click(function () {
+            $('#modalExportar').hide();
+            vaciarImprimir();
+        });
+        function vaciarImprimir() {
+            $("#nombreObraI").prop("checked", false);
+            $('#expedienteI').prop("checked", false);
+            $('#publicacionI').prop("checked", false);
+            $('#organismoI').prop("checked", false);
+            $('#montoI').prop("checked", false);
+            $('#etapaI').prop("checked", false);
+            $('#aperturaI').prop("checked", false);
+            $('#ofertaI').prop("checked", false);
+            $('#todosI').prop("checked", false);
+        }
+        function marcarTodos() {
+            if ($('#todosI').is(':checked') == true) {
+                $("#nombreObraI").prop("checked", true);
+                $('#expedienteI').prop("checked", true);
+                $('#publicacionI').prop("checked", true);
+                $('#organismoI').prop("checked", true);
+                $('#montoI').prop("checked", true);
+                $('#etapaI').prop("checked", true);
+                $('#aperturaI').prop("checked", true);
+                $('#ofertaI').prop("checked", true);
+            } else {
+                $("#nombreObraI").prop("checked", false);
+                $('#expedienteI').prop("checked", false);
+                $('#publicacionI').prop("checked", false);
+                $('#organismoI').prop("checked", false);
+                $('#montoI').prop("checked", false);
+                $('#etapaI').prop("checked", false);
+                $('#aperturaI').prop("checked", false);
+                $('#ofertaI').prop("checked", false);
+            }
+        }
+
+        var url = "/api/Empresa/listarObraEmpresa?";
+        url = url + "nroExpediente=" + $('#txtNroExpediente').val();
+        url = url + "&nombreObra=" + $('#txtNombreObra').val();
+        url = url + "&fechaPub=" + $('#txtFechaPublic').val();
+        url = url + "&idOrganismo=" + $('#selectOrganismo').val();
+        url = url + "&idEmpresa=" + $('#idEmpresa').val();
+        url = url + "&idFavoritos=" + $('#selectFavoritos').val();
+
+        var idObraStr;
+        function buscarObraParaReporte() {
+            var url = "/api/Empresa/listarObraEmpresaExpotar?";
+            url = url + "nroExpediente=" + $('#txtNroExpediente').val();
+            url = url + "&nombreObra=" + $('#txtNombreObra').val();
+            url = url + "&fechaPub=" + $('#txtFechaPublic').val();
+            url = url + "&idOrganismo=" + $('#selectOrganismo').val();
+            url = url + "&idEmpresa=" + $('#idEmpresa').val();
+            url = url + "&idFavoritos=" + $('#selectFavoritos').val();
+            url = url + "&nombre=" + $('#nombreObraI').is(':checked');
+            url = url + "&expediente=" + $('#expedienteI').is(':checked');
+            url = url + "&publicacion=" + $('#publicacionI').is(':checked');
+            url = url + "&organismo=" + $('#organismoI').is(':checked');
+            url = url + "&monto=" + $('#montoI').is(':checked');
+            url = url + "&etapa=" + $('#etapaI').is(':checked');
+            url = url + "&apertura=" + $('#aperturaI').is(':checked');
+            url = url + "&oferta=" + $('#ofertaI').is(':checked');
+            window.location.href = url;
+            $('#modalExportar').hide();
+            vaciarImprimir();
+        }
+
+        function cargarEmailEmpresa() {
+            var urltmp = "/api/Empresa/buscarDatosEmpresa?idEmpresa=" + $('#idEmpresa').val();
+            fetch(urltmp, { method: "GET" })
+                .catch(() => {
+                    alert('Ocurrio un error');
+                })
+                .then(res => res.json())
+                .then(data => {
+                    $('#txtPopupMailEmpresa').val(data.replay.emailEmpresa);
+                })
+        }
+        function grabarEmailEmpresa() {
+            console.log('Grabar Email');
+            var value = 0;
+            var nombre = $('#idObraTermino').val() + $('#idEmpresa').val();
+            var urlGrabar = "/api/Empresa/grabarEmail";
+            fetch(urlGrabar, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    idEmpresa: $('#idEmpresa').val(),
+                    emailEmpresa: $('#txtPopupMailEmpresa').val(),
+                    emailCopiaEmpresa: $('#txtPopupMailCopiaEmpresa').val(),
+                    idObra: $('#idObraTermino').val()
+                })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    value = 1;
+                    console.log(value);
+                    var urlMasiva = "/Content/Comprobante/Oferta_" + nombre +".pdf";
+                    window.open(urlMasiva, '_blank', 'noopener, noreferrer');
+                })
+                .catch(error => {
+                    // Logica Error
+                    console.log('Error')
+                    alert('Error');
+                    console.log(error)
+                })
+            return value;
+        }
+        function showModal() {
+            // ... Otras lógicas ...
+
+           
+            $('#commentModal').css("display", "block"); // Abre el modal del chatbot
+            
+        }
+        function enviarComentario() {
+            var commentText = document.getElementById('commentText').value;
+
+            var messageContainer = document.createElement("div");
+            messageContainer.className = "message help-message right";
+            messageContainer.textContent = "Gracias por tu comentario, estaremos revisándolo a la brevedad.";
+            chatContent.appendChild(messageContainer);
+
+            // Scroll hacia abajo para mostrar el último mensaje
+            chatContent.scrollTop = chatContent.scrollHeight;
+        }
+        function cerrarModalChatbot() {
+            $('#commentModal').css("display", "none");
+        }
+    </script>
+}

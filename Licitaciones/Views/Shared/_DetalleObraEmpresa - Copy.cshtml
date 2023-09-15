@@ -1,0 +1,1296 @@
+﻿<style>
+    .fa-eraser:hover {
+        cursor: pointer;
+    }
+
+    .bg-light-blue, .label-primary, .modal-primary .modal-body {
+        background-color: #3c8dbc !important;
+        color: #fff !important;
+    }
+
+
+    .bg-yellow, .callout.callout-warning, .alert-warning, .label-warning, .modal-warning .modal-body {
+        background-color: #f39c12 !important;
+        color: #fff !important;
+    }
+
+    .panel {
+        margin-bottom: 2px !important;
+        background-color: #fff;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    }
+
+    .panel-info > .panel-heading {
+        color: white;
+        background-color: #5bc0de;
+        border-color: #5bc0de;
+    }
+
+    .panel-info > .panel-heading-left {
+        background-color: #5f2571;
+        border-color: #5f2571;
+    }
+
+    .panel-body {
+        padding: 0px 0px !important;
+        margin-bottom: 0rem !important;
+    }
+
+    hr {
+        height: 1px;
+        background-color: #009BDB;
+    }
+
+    h4.title-item {
+        font-size: 1em;
+        font-weight: bold;
+    }
+
+    .text-muted {
+        color: #777;
+    }
+
+    .text-item {
+        font-size: .95em;
+        text-align: justify;
+    }
+
+    .no-margin {
+        margin: 0 !important;
+    }
+
+    .pagination > li {
+        display: inline;
+    }
+
+    .pagination {
+        display: inline-block;
+        padding-left: 0;
+        margin: 20px 0;
+        border-radius: 4px;
+    }
+
+    .pull-right {
+        float: right !important;
+    }
+
+    .pagination > li > a {
+        background: #fafafa;
+        color: #666;
+    }
+
+    .pagination-sm > li > a, .pagination-sm > li > span {
+        padding: 5px 10px;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    span.badge-round {
+        display: inline-block;
+        height: 50px;
+        line-height: 50px;
+        width: 75px;
+        font-size: 12px;
+        font-weight: bold;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        border-radius: 30px;
+    }
+
+    .badge {
+        display: inline-block;
+        min-width: 10px;
+        padding: 3px 7px;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        background-color: #777;
+        border-radius: 10px;
+    }
+
+    .badgeHover {
+        color: #666;
+        display: inline-block;
+        min-width: 10px;
+        padding: 3px 7px;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        background-color: #777;
+        border-radius: 10px;
+    }
+
+    [data-title]:hover:after {
+        opacity: 1;
+        transition: all 0.1s ease 0.5s;
+        visibility: visible;
+    }
+
+    [data-title]:after {
+        content: attr(data-title);
+        position: absolute;
+        bottom: -1.6em;
+        left: 100%;
+        padding: 4px 4px 4px 8px;
+        color: #222;
+        white-space: nowrap;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        -moz-box-shadow: 0px 0px 4px #222;
+        -webkit-box-shadow: 0px 0px 4px #222;
+        box-shadow: 0px 0px 4px #222;
+        opacity: 0;
+        z-index: 99999;
+        visibility: hidden;
+        color: white;
+        background-color: black;
+        font-family: "Source Sans Pro",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    }
+
+    [data-title] {
+        position: relative;
+    }
+
+    .select2-selection__choice {
+        background-color: dodgerblue !important;
+    }
+
+    .select2-results__option {
+        font-size: smaller !important;
+    }
+
+    .select2-selection__choice__remove {
+        color: white !important;
+    }
+
+
+    /* Set the size of the div element that contains the map */
+    #map {
+        height: 350px; /* The height is 400 pixels */
+        width: 100%; /* The width is the width of the web page */
+    }
+
+    .upload-area {
+        width: 70%;
+        height: 130px;
+        border: 2px solid lightgray;
+        border-radius: 3px;
+        margin: 0 auto;
+        margin-top: 100px;
+        text-align: center;
+        overflow: auto;
+    }
+
+        .upload-area:hover {
+            cursor: pointer;
+        }
+
+        .upload-area h1 {
+            text-align: center;
+            font-weight: normal;
+            font-family: sans-serif;
+            line-height: 50px;
+            color: darkslategray;
+        }
+
+    #file {
+        display: none;
+    }
+
+    /* Thumbnail */
+    .thumbnail {
+        width: 80px;
+        height: 80px;
+        padding: 2px;
+        border: 2px solid lightgray;
+        border-radius: 3px;
+        float: left;
+    }
+
+    .size {
+        font-size: 12px;
+    }
+</style>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+<div class="modal-dialog" style="margin-left: 1%;margin-top: 1%; margin-right: 1%;max-width: 95%!important;" id="modal-obra">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="panel-body">
+                <div class="row" style="margin-bottom: 0%;">
+                    <div class="col-md-6 form-group" style="margin-top:1%;">
+                        <label class="title-item">Obra:</label>
+                        <span class="text-muted text-item badge bg-light-blue" id="ppCabeceraObra"></span>
+                    </div>
+                    <div class="col-md-6 form-group" style="margin-top:1%;">
+                        <label class="title-item">Expediente:</label>
+                        <span class="text-muted text-item badge bg-yellow" id="ppCabeceraExpediente"></span>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 1%;">
+                    <span class="text-muted text-item badge bg-red">Si alguno de estos datos difiere de los del pliego y sus correspondientes comunicaciones, debe priorizar las del pliego</span>
+                </div>
+            </div>
+            <div class="row">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active"
+                           id="primerTab"
+                           data-toggle="tab"
+                           href="#solInfo"
+                           role="tab"
+                           aria-selected="true">
+                            <span class="fa fa-home">
+                            </span>
+                            Datos Obra
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           data-toggle="tab"
+                           href="#solReclamo"
+                           role="tab"
+                           aria-selected="true">
+                            <span class="fa fa-fw fa-dollar-sign">
+                            </span>
+                            Licitacion
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           data-toggle="tab"
+                           href="#solGeo"
+                           role="tab"
+                           id="tabDocumentacion"
+                           aria-selected="true">
+                            <span class="fa fa-fw fa-file">
+                            </span>
+                            Documentacion
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content" style="width: 100%;">
+                    <div class="tab-pane active" id="solInfo" role="tabpanel">
+                        <div class="col-xs-12">
+                            <div class="row">
+                                <div class="col-md-9" 
+                                     style="max-height: 400px;overflow-y: auto;overflow-x: hidden;">
+                                    <div class="panel panel-info">
+                                        <div class="panel-heading-left panel-heading">
+                                            <strong>INFORMACION GENERAL</strong>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row" style="margin-top: 10px;">
+                                                <div class="col-md-2">
+                                                    <i class="fa fa-question-circle"
+                                                       data-title="Dato adicional que se considere relevante para la obra"
+                                                       style="font-size: smaller; cursor: help; margin-top: 10px !important;"></i>
+                                                    <label class="title-item" style="margin-top: 5px !important;">
+                                                        Descripción:
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <textarea id="txtPpDescripcion" name="txtPpDescripcion" rows="2" cols="160" disabled style="width: 100%; font-size: smaller !important;">
+                                                    </textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-top: 10px;">
+                                                <div class="col-md-2">
+                                                    <i class="fa fa-question-circle"
+                                                       data-title="Las Etapas de Banco de Proyectos están vinculadas fuertemente con el Ciclo de Vida del Proyecto y describen con mas detalle su estado. Identificar la fase en la que se encuentra la necesidad solicitada"
+                                                       style="font-size: smaller; cursor: help;"></i>
+                                                    <label class="title-item" style="margin-top: 5px !important;">
+                                                        Estado:
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           disabled
+                                                           style="width: 90% !important; font-size: smaller; display: inline !important;"
+                                                           id="txtPpNombreEtapaEmp" />
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <i class="fa fa-question-circle"
+                                                       data-title="Organismo provincial responsable de la Licitación/Convenio/Contrato."
+                                                       style="font-size: smaller; cursor: help;"></i>
+                                                    <label class="title-item" style="margin-top: 5px !important;">
+                                                        Organismo:
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           disabled
+                                                           style="width: 90% !important; font-size: smaller; display: inline !important;"
+                                                           id="txtPpNombreOrganismo" />
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-top: 10px; margin-bottom: 5px;">
+                                                <div class="col-md-2">
+                                                    <i class="fa fa-question-circle"
+                                                       data-title="Especialidad que debe tener la empresa para realizar una oferta."
+                                                       style="font-size: smaller; cursor: help; margin-top: 10px !important;"></i>
+                                                    <label class="title-item" style="margin-top: 5px !important;">
+                                                        Especialidad:
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select class="select2"
+                                                            multiple="multiple"
+                                                            disabled
+                                                            style="width: 90% !important; display: inline !important; font-size: smaller;"
+                                                            id="selectPpEspecialidad">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-top: 10px; margin-bottom: 5px;">
+                                                <div class="col-md-2">
+                                                    <i class="fa fa-question-circle"
+                                                       data-title="Ingresar un valor que va de 1 a 100. La suma de todos los porcentajes no puede superar el 100%"
+                                                       style="font-size: smaller; cursor: help; margin-top: 10px !important;"></i>
+                                                    <label class="title-item" style="margin-top: 5px !important;">
+                                                        % Especialidad 100/400:
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           maxlength="3"
+                                                           disabled
+                                                           style="width: 90% !important; display:inline !important;"
+                                                           id="txtPpPorcentaje100" />
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <i class="fa fa-question-circle"
+                                                       data-title="Ingresar un valor que va de 1 a 100. La suma de todos los porcentajes no puede superar el 100%"
+                                                       style="font-size: smaller; cursor: help; margin-top: 10px !important;"></i>
+                                                    <label class="title-item" style="margin-top: 5px !important;">
+                                                        % Especialidad 500:
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           maxlength="3"
+                                                           disabled
+                                                           style="width: 90% !important; display:inline !important;"
+                                                           id="txtPpPorcentaje500" />
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+                                                <div class="col-md-1">
+                                                    <label class="title-item" style="margin-top: 5px !important;">
+                                                        Presupuesto Oficial:
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <i class="fa fa-question-circle"
+                                                       data-title="El presupuesto oficial es el estudio detallado efectuado por la administración, de las cubicaciones, precios unitarios y precio total previsto de una obra."
+                                                       style="font-size: smaller; cursor: help;"></i>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           disabled
+                                                           style="width: 90% !important; font-size: smaller; display: inline !important;background-color: blueviolet;color:white;"
+                                                           id="txtPpPresupuesto" />
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <label class="title-item" style="margin-top: 5px !important;">
+                                                        Moneda:
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <i class="fa fa-question-circle"
+                                                       data-title="Se refiere a la moneda del monto del presupuesto, en general es PESOS, pero algunas obras son presupuestadas en DOLARES o DOLARES y PESOS."
+                                                       style="font-size: smaller; cursor: help;"></i>
+                                                    <select class="form-control"
+                                                            disabled
+                                                            style="width: 90% !important; font-size: smaller; display: inline !important;"
+                                                            id="selectPpMoneda">
+                                                        <option value="0">Seleccione</option>
+                                                        <option value="1">Pesos</option>
+                                                        <option value="2">Dólares</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <label class="title-item" style="margin-top: 5px !important;">
+                                                        Tipo Contratación:
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <i class="fa fa-question-circle"
+                                                       data-title="Se seleccionará la modalidad de contratación según lo que se indica en el Pliego de Bases y Condiciones Particulares Legales el presupuesto oficial de la Obra."
+                                                       style="font-size: smaller; cursor: help;"></i>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           disabled
+                                                           style="width: 90% !important; font-size: smaller; display: inline !important;"
+                                                           id="txtPpTipoContratacion" />
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <label class="title-item" style="margin-top: 5px !important;">
+                                                        Plazo Ejecución:
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <i class="fa fa-question-circle"
+                                                       data-title="Tiempo (en meses) calculado para la duración total de la obra."
+                                                       style="font-size: smaller; cursor: help;"></i>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           maxlength="4"
+                                                           disabled
+                                                           style="width: 90% !important; font-size: smaller; display: inline !important;"
+                                                           id="txtPpEjecucion" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="panel-heading-left panel-heading" style="background-color: #5f2571; border-color: #5f2571;color: white;">
+                                                <strong>LOCALIZACION</strong>
+                                            </div>
+                                            <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+                                                <div class="col-md-2">
+                                                    <i class="fa fa-question-circle"
+                                                       data-title="Hace referencia al domicilio donde se realizará la obra."
+                                                       style="font-size: smaller; cursor: help;"></i>
+                                                    <label class="title-item" style="margin-top: 5px !important;">
+                                                        Domicilio:
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <i class="fa fa-question-circle"
+                                                       data-title="Para obtener la Latitud, ingrese al sitio de Google Maps y busque la ubicación de la obra. De click derecho sobre el punto exacto en el mapa y le mostrará los valores de latitud y longitud. El primer valor representa la Latitud. Formato de ejemplo: -34,91077400."
+                                                       style="font-size: smaller; cursor: help;"></i>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           disabled
+                                                           style="width: 90% !important; font-size: smaller; display: inline !important;"
+                                                           id="txtPpDomiclio" />
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+                                                <div class="col-md-2">
+                                                    <i class="fa fa-question-circle"
+                                                       data-title="Hace referencia a la división municipal de provincia. La ubicación de un proyecto puede abarcar más de un departamento."
+                                                       style="font-size: smaller; cursor: help;"></i>
+                                                    <label class="title-item" style="margin-top: 5px !important;">
+                                                        Departamento:
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <select class="select2"
+                                                            disabled
+                                                            multiple="multiple"
+                                                            style="width: 90% !important; display: inline !important; font-size: smaller;"
+                                                            id="selectPpDepartamento">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div id="map"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="solReclamo" role="tabpanel">
+                        <div class="col-xs-12">
+                            <div class="panel panel-info">
+                                <div class="panel-heading-left panel-heading">
+                                    <strong>DATOS LICITACION</strong>
+                                </div>
+                                <div class="panel-body"
+                                    style="margin-bottom:10px !important;max-height: 400px;overflow-y: auto;overflow-x: hidden; padding-top:0px !important">
+                                    <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Url Pliego:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Link de descarga del Pliego de Bases y Condiciones Generales, subido al sistema COMPRAR."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   maxlength="500"
+                                                   disabled
+                                                   style="width: 80% !important; font-size: smaller; display: inline !important;"
+                                                   id="txtPpUrlPliego" />
+                                            <i class="fa fa-folder-open"
+                                               title="Ver Pliego"
+                                               onclick="verPliego()"
+                                               style="font-size: smaller; cursor: pointer;"></i>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Valor Pliego:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="En algunos casos la adquisición del pliego tiene un costo."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   disabled
+                                                   style="width: 90% !important; font-size: smaller; display: inline !important;"
+                                                   id="txtPpValorPliego" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Mail Consultas:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Dirección de email oficial donde deben dirigirse las empresas cuando tienen una consulta sobre la Licitación."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   maxlength="500"
+                                                   disabled
+                                                   style="width: 90% !important; font-size: smaller; display: inline !important;"
+                                                   id="txtPpMailConsulta" />
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 10px;">
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Fecha Visita:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Fecha de la primera publicación debe coincidir con la fecha del boletín oficial."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   disabled
+                                                   style="width: 90% !important; font-size: smaller; display: inline !important; appearance: auto !important;"
+                                                   id="txtPpFechaVisita" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Lugar Visita:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Fecha en la cual se produce la apertura de OFERTAS."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   disabled
+                                                   style="width: 90% !important; font-size: smaller; display: inline !important;"
+                                                   id="txtPpLugarVisita" />
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 10px;">
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Fecha Cierre:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Fecha hasta la que se pueden subir ofertas."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   disabled
+                                                   style="width: 90% !important; font-size: smaller; display: inline !important; appearance: auto !important;background-color: blueviolet; color: white;"
+                                                   id="txtPpFechaCierre" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Fecha Apertura:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Fecha en la cual se produce la apertura de OFERTAS."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   disabled
+                                                   style="width: 90% !important; font-size: smaller; display: inline !important; appearance: auto !important;"
+                                                   id="txtPpFechaApertura" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Hora Apertura:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Hora en la cual se produce la apertura de OFERTAS."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   disabled
+                                                   style="width: 90% !important; font-size: smaller; display: inline !important;"
+                                                   id="txtPpHoraApertura" />
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 10px;">
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Domicilio Presentación:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Domicilio donde debe presentarse los sobres de las ofertas en formato papel."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   disabled
+                                                   maxlength="1500"
+                                                   style="width: 90% !important; font-size: smaller; display: inline !important;"
+                                                   id="txtPpDomicilioPresentacion" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="title-item" style="margin-top: 5px !important;">
+                                                Domicilio Apertura:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <i class="fa fa-question-circle"
+                                               data-title="Domicilio donde se realizará el acto de apertura de OFERTAS."
+                                               style="font-size: smaller; cursor: help;"></i>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   maxlength="1500"
+                                                   disabled
+                                                   style="width: 90% !important; font-size: smaller; display: inline !important;"
+                                                   id="txtPpDomicilioApertura" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="solGeo" role="tabpanel">
+                        <div class="col-xs-12">
+                            <div class="panel panel-info">
+                                <div class="panel-heading-left panel-heading">
+                                    <strong>REQUISITOS</strong>
+                                </div>
+                                <div class="panel-body" style="margin-bottom:0px !important; padding-top:0px !important">
+                                    <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+                                        <span class="badge bg-green" id="divPpMjePermiteArchivo">
+                                            Debe subir solo un archivo por requisito
+                                        </span>
+                                    </div>
+                                    <div class="row" style="margin-top: 10px;" id="divPpSubirArchivos">
+                                        <div class="col-8">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <label class="title-item" style="margin-top: 5px !important;">
+                                                        Nro Sobre:
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <select class="form-control"
+                                                            style="width: 90% !important; font-size: smaller; display: inline !important;"
+                                                            id="selectPpSobre">
+                                                        <option value="1">Nro 1</option>
+                                                        <option value="2">Nro 2</option>
+                                                        <option value="3">Nro 3</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label class="title-item" style="margin-top: 5px !important;">
+                                                        Item:
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <select class="form-control"
+                                                            style="width: 90% !important; font-size: smaller; display: inline !important;"
+                                                            id="selectPpRequisito">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="container">
+                                                    <input type="file" name="file" id="file" accept="application/pdf">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <!-- Drag and Drop container-->
+                                                <div class="upload-area" id="uploadfile">
+
+                                                    <span class="badge bg-blue" style="font-size:small;" id="ppMensajeArchivo">
+                                                        Arrastre el archivo
+                                                    </span>
+                                                    <br /><br />
+                                                    <i class="fas fa-upload"
+                                                       title="Subir Archivos"
+                                                       style="text-align: center;font-size: xxx-large !important;color: green;">
+                                                    </i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4" 
+                                             style="max-height: 200px;overflow-y: auto;overflow-x: hidden;">
+                                            <label class="title-item" style="margin-left: 1%;margin-top: 5px;">
+                                                Lista de Requisitos Obra
+                                            </label>
+                                            <table class="table table-bordered table-striped"
+                                                   id="tablePPDocObra"
+                                                    style="margin-left: 15px; width: 90%;">
+                                                <thead style="background-color: #5f2571;color:white;">
+                                                    <tr>
+                                                        <th style="text-align: center;" width="90%">Requisito</th>
+                                                        <th style="text-align: center;" width="10%">Acción</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 5px;">
+                <button class="btn btn-danger" id="btnCerrarPopupObra" style="margin-left: 1%;">Cerrar</button>
+                <button class="btn btn-success" id="btnEnviarPopupObra" style="color:white;margin-left: 1%;">Enviar Oferta</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" value="0" id="idObra" />
+<script>
+    @section Scripts {
+
+    }
+</script>
+
+<script>
+
+    function mostrarPopup(idObra) {
+        //$('#modal-popup-Obra').css("display", "none");
+        vaciarDatos();
+        $('#idObra').val(idObra);
+        loadEspecialidadPopup($('#selectPpEspecialidad'), false);
+        loadDepartamentoPopup($('#selectPpDepartamento'), false);
+        //$('#selectPpFinanciamiento').select2({
+        //    theme: 'bootstrap4'
+        //});
+        $('#selectPpOrganismo').select2({
+            theme: 'bootstrap4'
+        });
+        cargarInfoGeneral(idObra);
+        cargarPorcEspecialidad(idObra);
+        setTimeout(function () {
+            cargarInfoEspecialidad(idObra);
+            cargarInfoDepartamento(idObra);
+            /*        cargarPlanificacionProyecto(idObra);*/
+            $('#modal-popup-Obra').css("display", "block");
+        }, 900);
+    }
+
+    function loadTipoContratacionPopup(idTipoContratacion) {
+        var urltmp = "/api/Licitacion/buscarTipoContratacion?idTipoContratacion=" + idTipoContratacion;
+        fetch(urltmp, { method: "GET" })
+            .catch(() => {
+                alert('Ocurrio un error');
+            })
+            .then(res => res.json())
+            .then(data => {
+                $('#txtPpTipoContratacion').val(data);
+            })
+    }
+    function loadDepartamentoPopup(control, seleccionar) {
+        var select = control;
+        select.empty();
+
+        if (seleccionar) {
+            select.append($('<option/>', { value: '0', text: '--Seleccione--' }));
+        }
+
+        var urltmp = "/api/Departamento/Listar";
+        fetch(urltmp, { method: "GET" })
+            .catch(() => {
+                alert('Ocurrio un error');
+            })
+            .then(res => res.json())
+            .then(data => {
+                $.each(data.replay, function (index, result) {
+                    select.append($('<option/>', {
+                        value: result.id,
+                        text: result.nombre
+                    }));
+                });
+            })
+    }
+
+    function loadFinanciamientoPopup(control, seleccionar) {
+        var select = control;
+        select.empty();
+
+        if (seleccionar) {
+            select.append($('<option/>', { value: '0', text: '--Seleccione--' }));
+        }
+
+        var urltmp = "/api/Financiamiento/Listar";
+        fetch(urltmp, { method: "GET" })
+            .catch(() => {
+                alert('Ocurrio un error');
+            })
+            .then(res => res.json())
+            .then(data => {
+                $.each(data.replay, function (index, result) {
+                    select.append($('<option/>', {
+                        value: result.id,
+                        text: result.nombre
+                    }));
+                });
+            })
+    }
+    function loadEtapaPopup(control, seleccionar) {
+        var select = control;
+        select.empty();
+        var urltmp = "/api/Etapa/Listar";
+        fetch(urltmp, { method: "GET" })
+            .catch(() => {
+                alert('Ocurrio un error');
+            })
+            .then(res => res.json())
+            .then(data => {
+                $.each(data.replay, function (index, result) {
+                    select.append($('<option/>', {
+                        value: result.id,
+                        text: result.nombre
+                    }));
+                });
+            })
+    }
+    function loadEspecialidadPopup(control, seleccionar) {
+        var select = control;
+        select.empty();
+        var urltmp = "/api/Especialidad/Listar";
+        fetch(urltmp, { method: "GET" })
+            .catch(() => {
+                alert('Ocurrio un error');
+            })
+            .then(res => res.json())
+            .then(data => {
+                $.each(data.replay, function (index, result) {
+                    select.append($('<option/>', {
+                        value: result.id,
+                        text: result.nombre
+                    }));
+                });
+            })
+    }
+
+    function cargarInfoGeneral(idObra) {
+        var urltmp = "/api/Licitacion/buscarUna?idObra=" + idObra;
+        fetch(urltmp, { method: "GET" })
+            .catch(() => {
+                alert('Ocurrio un error');
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                $('#ppCabeceraObra').text(data.replay.nombreObra);
+                $('#ppCabeceraExpediente').text(data.replay.nroExpediente);
+                /*$('#ppCabeceraCaratula').text(data.replay.caratula);*/
+                $('#txtPpDescripcion').val(data.replay.descripcion);
+                $('#txtPpNombreOrganismo').val(data.replay.nombreOrganismoString);
+                $('#txtPpNombreEtapaEmp').val(data.replay.nombreEtapa);
+                if (data.replay.idEtapa != 6) {
+                    $('#tabDocumentacion').css("display", "none");
+                    $('#btnEnviarPopupObra').prop("disabled", true);
+                }
+                else {
+                    $('#tabDocumentacion').css("display", "block");
+                    $('#btnEnviarPopupObra').prop("disabled", false);
+                }
+                $('#txtPpDomiclio').val(data.replay.domicilio);
+                if (data.replay.plazo != null) {
+                    if (data.replay.unidadPlazo != null) {
+                        if (data.replay.unidadPlazo == 0) {
+                            $('#txtPpEjecucion').val(data.replay.plazo + " Dias");
+                        }
+                        if (data.replay.unidadPlazo == 1) {
+                            $('#txtPpEjecucion').val(data.replay.plazo + " Meses");
+                        }
+                    }
+                }            
+                $('#txtPpValorPliego').val(data.replay.valorPliego);
+                $('#txtPpPresupuesto').val(data.replay.montoObraString);
+                $('#selectPpMoneda').val(data.replay.idMoneda);
+                $('#txtPpDomicilioApertura').val(data.replay.domicilioApertura);
+                $('#txtPpDomicilioPresentacion').val(data.replay.domicilioPresentacion);
+                $('#txtPpUrlPliego').val(data.replay.urlPliego);
+                $('#txtPpMailConsulta').val(data.replay.mailConsulta);
+                $('#txtPpLugarVisita').val(data.replay.lugarVisita);
+                $('#txtPpFechaApertura').val(data.replay.fechaAperturaString);
+                $('#txtPpFechaPublicacion').val(data.replay.fechaPublicacionString);
+                $('#txtPpFechaCierre').val(data.replay.fechaCierreString);
+                $('#txtPpFechaVisita').val(data.replay.fechaVisitaString);
+
+                if ((data.replay.longitud != null) && (data.replay.longitud != 0)) {
+                    long = parseFloat(data.replay.longitud);
+                }
+                if ((data.replay.latitud != null) && (data.replay.latitud != 0)) {
+                    lat = parseFloat(data.replay.latitud);
+                }
+                initMap(lat, long);
+
+
+                if (data.replay.horaApertura != null) {
+                    loadHora(data.replay.horaApertura, $('#txtPpHoraApertura'));
+                }
+                loadTipoContratacionPopup(data.replay.idTipoContratacion);
+                if (data.replay.moneda != null) {
+                    data.replay.moneda = 0;
+                }
+                var className = $("#divPpMjePermiteArchivo").attr("class");
+                if (data.replay.idEtapa == 6) {
+                    $('#divPpSubirArchivos').show();
+                    $("#divPpMjePermiteArchivo").text("Debe subir solo un archivo por requisito");
+                    if (className == 'badge bg-red') {
+                        $("#divPpMjePermiteArchivo").toggleClass('bg-red bg-green');
+                    }
+                    loadRequisitoPopup();
+                    cargarTablaRequisitoObra();
+                }
+                else {
+                    $('#divPpSubirArchivos').hide();
+                    $("#divPpMjePermiteArchivo").text("Ya no puede subir ofertas para esta obra");
+                    if (className == 'badge bg-green') {
+                        $("#divPpMjePermiteArchivo").toggleClass('bg-red bg-green');
+                    }
+                }
+            })
+    }
+    function cargarInfoEspecialidad(idObra) {
+        var urltmp = "/api/Especialidad/listarPorProyectoStr?idObra=" + idObra;
+        fetch(urltmp, { method: "GET" })
+            .catch(() => {
+                alert('Ocurrio un error');
+            })
+            .then(res => res.json())
+            .then(data => {
+                var selectedValues = data.replay.split(',');
+                $('#selectPpEspecialidad').val(selectedValues);
+                $('#selectPpEspecialidad').trigger("change");
+            })
+    }
+    function cargarPorcEspecialidad(idObra) {
+        var urltmp = "/api/Especialidad/listarPorProyecto?idObra=" + idObra;
+        fetch(urltmp, { method: "GET" })
+            .catch(() => {
+                alert('Ocurrio un error');
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log('PORCENTAJE');
+                console.log(data);
+                console.log('PORCENTAJE FIN');
+                if (data.replay.codigo != 0) {
+                    $('#txtPpPorcentaje100').val(data.replay[0].porcentaje100);
+                    $('#txtPpPorcentaje500').val(data.replay[0].porcentaje500);
+                }
+            })
+    }
+    function cargarInfoDepartamento(idObra) {
+        var urltmp = "/api/Departamento/listarPorProyectoStr?idObra=" + idObra;
+        fetch(urltmp, { method: "GET" })
+            .catch(() => {
+                alert('Ocurrio un error');
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.replay != null) {
+                    var selectedValues = data.replay.split(',');
+                    $('#selectPpDepartamento').val(selectedValues);
+                    $('#selectPpDepartamento').trigger("change");
+                }
+            })
+    }
+    function cargarPlanificacionProyecto(idObra) {
+        var urltmp = "/api/Planificacion/buscarUna?idObra=" + idObra;
+        fetch(urltmp, { method: "GET" })
+            .catch(() => {
+                alert('Ocurrio un error');
+            })
+            .then(res => res.json())
+            .then(data => {
+                var selectedValues = data.replay.presupuesto;
+                $('#txtPpPresupuesto').val(selectedValues);
+            })
+    }
+
+    function vaciarDatos() {
+        $('#ppCabeceraObra').text('');
+        $('#ppCabeceraExpediente').text('');
+        /*$('#ppCabeceraCaratula').text('');*/
+        $('#txtPpDescripcion').val('');
+        $('#txtPpLatitud').val('');
+        $('#txtPpLongitud').val('');
+        $('#txtPpDomiclio').val('');
+
+        $('#txtPpEjecucion').val('');
+        $('#txtPpUrlPliego').val('');
+        $('#txtPpValorPliego').val('');
+        $('#txtPpPresupuesto').val('');
+        $('#txtPpMailConsulta').val('');
+        $('#txtPpDomicilioPresentacion').val('');
+        $('#txtPpDomicilioApertura').val('');
+        $('#txtPpFechaApertura').val('');
+        $('#txtPpHoraApertura').val('');
+        $('#txtPpFechaPublicacion').val('');
+        $('#txtPpLimiteConsultas').val('');
+        $('#selectPpMoneda').val(0).change();
+
+        $('#txtPpFechaCierre').val('');
+        $('#txtPpFechaVisita').val('');
+        $('#txtPpLugarVisita').val('');
+        $('#txtPpNombreOrganismo').val('');
+        $('#txtPpNombreEtapaEmp').val('');
+
+    }
+
+    function loadFecha(fecha, control) {
+        var now = new Date(fecha);
+        console.log('la fecha es' + fecha);
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+        control.val(today);
+    }
+    function loadHora(hora, control) {
+        var hora2 = hora.split(':');
+        var hour = hora2[0];
+        var arrmin = hora2[1].split(' ');
+        var min = arrmin[0];
+        var horaMinuto = hour + ":" + min;
+        console.log(horaMinuto);
+        control.val(horaMinuto);
+    }
+
+    function loadRequisitoPopup() {
+        $('#selectPpRequisito').empty();
+        var urltmp = "/api/Documentacion/listarRequisitoPorObra?idObra=" + $('#idObra').val() + "&nroSobre=" + $('#selectPpSobre').val();
+        fetch(urltmp, { method: "GET" })
+            .catch(() => {
+                alert('Ocurrio un error');
+            })
+            .then(res => res.json())
+            .then(data => {
+                $.each(data.replay, function (index, result) {
+                    $('#selectPpRequisito').append($('<option/>', {
+                        value: result.id,
+                        text: result.nombre
+                    }));
+                });
+            })
+    }
+
+    function cargarTablaRequisitoObra() {
+        $('#tablePPDocObra tbody').empty();
+        var urltmp = "/api/Documentacion/listarRequisitoPorObraEmpresa";
+        urltmp = urltmp + "?idObra=" + $('#idObra').val();
+        urltmp = urltmp + "&nroSobre=" + $('#selectPpSobre').val();
+        urltmp = urltmp + "&idEmpresa=" + $('#idEmpresa').val();
+        fetch(urltmp, { method: "GET" })
+            .catch(() => {
+                alert('Ocurrio un error');
+            })
+            .then(res => res.json())
+            .then(data => {
+                $.each(data.replay, function (index, result) {
+                    console.log(result);
+                    var item = "<tr>";
+                    item = item + '<td style="text-align: left;">' + result.nombre + '</td>';
+                    if (result.completo == 1) {
+                        item = item + '<td style="text-align: center;"><i class="fa fa-minus-square" style="cursor: pointer; color: red;" title="Eliminar Archivo" onclick="eliminarArchivo(' + result.idArchivo + ')"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa a fa-download" style="cursor: pointer; color: green;" title="Descargar Archivo" onclick="descargarArchivo(' + result.idArchivo + ')"></i></td>';
+                    }
+                    else {
+                        item = item + '<td style="text-align: center;"><span class="badge bg-red">No ha subido documentación</span ></td>';
+                    }
+                    item = item + "</tr>";
+                    $('#tablePPDocObra tbody').append(item);
+                });
+            })
+    }
+
+    function uploadData(formdata) {
+        guardarArchivo(formdata);
+        //addThumbnail();
+    }
+    function guardarArchivo(file) {
+
+        if ($('#idEmpresa').val()!=0) {
+            var total = $("#file")[0].files.length;
+
+            if (total == 0) {
+                console.log(file);
+                var data = new FormData();
+                data.append("Upload", file);
+                data.append("idObra", $('#idObra').val());
+                data.append("idEmpresa", $('#idEmpresa').val());
+                data.append("idRequisito", $('#selectPpRequisito').val());
+                data.append("nroSobre", $('#selectPpSobre').val());
+                $.ajax({
+                    type: "POST",
+                    url: "/api/Archivo/UploadFile",
+                    contentType: false,
+                    processData: false,
+                    data: data,
+                    success: function (response) {
+                        console.log("mensaje1: " + response);
+                        $("#ppMensajeArchivo").text("Archivo Subido");
+                        $("#ppMensajeArchivo").toggleClass('bg-gradient-orange bg-green');
+                        cargarTablaRequisitoObra();
+                        $("#file").val('');
+                    },
+                    error: function (jqxhr) {
+                        console.log('Error al guardar el archivo');
+                        $("#ppMensajeArchivo").text("Error al subir el archivo");
+                        $("#ppMensajeArchivo").toggleClass('bg-gradient-orange bg-red');
+                        console.log(jqxhr);
+
+                    }
+                });
+            }
+            else {
+                for (i = 0; i < total; i++) {
+                    var files = $("#file").get(0).files;
+                    var data = new FormData();
+                    if (files.length > 0) {
+                        data.append("Upload", files[i]);
+                        data.append("idObra", $('#idObra').val());
+                        data.append("idEmpresa", $('#idEmpresa').val());
+                        data.append("idRequisito", $('#selectPpRequisito').val());
+                        data.append("nroSobre", $('#selectPpSobre').val());
+                        $.ajax({
+                            type: "POST",
+                            url: "/api/Archivo/UploadFile",
+                            contentType: false,
+                            processData: false,
+                            data: data,
+                            success: function (response) {
+                                console.log("mensaje2: " + response);
+                                $("#ppMensajeArchivo").text("Archivo Subido");
+                                $("#ppMensajeArchivo").toggleClass('bg-gradient-orange bg-green');
+                                cargarTablaRequisitoObra();
+                            },
+                            error: function (jqxhr) {
+                                console.log('Error al guardar el archivo');
+                                $("#ppMensajeArchivo").text("Error al subir el archivo");
+                                $("#ppMensajeArchivo").toggleClass('bg-gradient-orange bg-red');
+                                console.log(jqxhr);
+
+                            }
+                        });
+                    }
+                }
+            }
+        }
+        else {
+            window.location.href = "/racop";
+        }
+    }
+    // Thumbnail
+    function addThumbnail(data) {
+        $("#uploadfile h1").remove();
+        var len = $("#uploadfile div.thumbnail").length;
+
+        //var num = Number(len);
+        //num = num + 1;
+
+        //var name = data.name;
+        //var size = convertSize(data.size);
+        //var src = data.src;
+
+        // Creating an thumbnail
+        $("#uploadfile").append('<div id="thumbnail_' + 1 + '" class="thumbnail"></div>');
+        $("#thumbnail_" + 1).append('<img src="' + "/AdminLte/dist/img/avatar.png" + '" width="100%" height="78%">');
+        //$("#thumbnail_" + num).append('<span class="size">' + size + '<span>');
+
+    }
+    // conversion
+    function convertSize(size) {
+        var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        if (size == 0) return '0 Byte';
+        var i = parseInt(Math.floor(Math.log(size) / Math.log(1024)));
+        return Math.round(size / Math.pow(1024, i), 2) + ' ' + sizes[i];
+    }
+    function descargarArchivo(id) {
+        window.location.href = '/api/Archivo/DescargarArchivo?id=' + id;
+    }
+    function eliminarArchivo(id) {
+        var urltmp = "/api/Archivo/EliminarArchivo?id=" + id;
+        fetch(urltmp, { method: "GET" })
+            .catch(() => {
+                alert('Ocurrio un error');
+            })
+            .then(res => res.json())
+            .then(data => {
+                cargarTablaRequisitoObra();
+            })
+    }
+
+    function enviarOferta() {
+        var value = 0;
+        var urlGrabar = "/api/Empresa/enviarOferta";
+        fetch(urlGrabar, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idObra: $('#idObra').val(),
+                idEmpresa: $('#idEmpresa').val()
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                // Logica Exito
+                console.log('Exito')
+                //alert('Exito');
+                value = 1;
+                console.log('Value');
+                console.log(value);
+                buscar();
+                $('#modal-popup-Obra').css("display", "none");
+            })
+            .catch(error => {
+                // Logica Error
+                console.log('Error')
+                alert('Error');
+                console.log(error)
+            })
+        return value;
+    }
+    function descargarOferta() {
+        window.location.href = '/api/Archivo/DescargarOferta?idObra=' + $('#idObra').val() + '&idEmpresa=' + $('#idEmpresa').val();
+    }
+</script>

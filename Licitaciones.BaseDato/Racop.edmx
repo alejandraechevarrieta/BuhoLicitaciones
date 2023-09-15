@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DB_RACOPModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="rc_Empresa">
+          <Key>
+            <PropertyRef Name="idEmpresa" />
+          </Key>
+          <Property Name="idEmpresa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cuit" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="nro" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="razonSocial" Type="varchar" MaxLength="55" Nullable="false" />
+          <Property Name="ingresosBrutos" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="inscripcionIERIC" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="inscConsejoNro" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="inscConsejoFecha" Type="date" />
+          <Property Name="domicilioReal" Type="varchar" MaxLength="55" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="esMendocina" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="inscRegSocietario" Type="date" Nullable="false" />
+          <Property Name="domicilioEspecial" Type="varchar" MaxLength="55" />
+          <Property Name="telefonoEspecial" Type="varchar" MaxLength="45" />
+          <Property Name="mailEspecial" Type="varchar" MaxLength="45" />
+          <Property Name="nomApeContacto" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="telefonoContacto" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="mailContacto" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="passTokenRecovery" Type="varchar" MaxLength="64" />
+          <Property Name="activo" Type="varchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="rc_EmpresaUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idEmpresa" Type="int" Nullable="false" />
+          <Property Name="idUser" Type="int" Nullable="false" />
+          <Property Name="activo" Type="int" Nullable="false" />
+          <Property Name="usuarioCarga" Type="int" Nullable="false" />
+          <Property Name="fechaAlta" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="fechaBaja" Type="varchar" MaxLength="45" />
+          <Property Name="Id_rol" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_Especialidades">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cod" Type="int" />
+          <Property Name="Especialidad" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tb_SubEspecialidades">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Especialidad" Type="int" />
+          <Property Name="CodSubEsp" Type="varchar" MaxLength="4" />
+          <Property Name="SubEspecialidad" Type="varchar" MaxLength="255" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityContainer Name="DB_RACOPModelStoreContainer">
+          <EntitySet Name="rc_Empresa" EntityType="Self.rc_Empresa" Schema="db_racop" store:Type="Tables" />
+          <EntitySet Name="rc_EmpresaUser" EntityType="Self.rc_EmpresaUser" Schema="db_racop" store:Type="Tables" />
+          <EntitySet Name="tb_Especialidades" EntityType="Self.tb_Especialidades" Schema="db_racop" store:Type="Tables" />
+          <EntitySet Name="tb_SubEspecialidades" EntityType="Self.tb_SubEspecialidades" Schema="db_racop" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_RACOPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DB_RACOPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="rc_EmpresaUser" EntityType="DB_RACOPModel.rc_EmpresaUser" />
+          <EntitySet Name="tb_Especialidades" EntityType="DB_RACOPModel.tb_Especialidades" />
+          <EntitySet Name="tb_SubEspecialidades" EntityType="DB_RACOPModel.tb_SubEspecialidades" />
+          <EntitySet Name="rc_Empresa" EntityType="DB_RACOPModel.rc_Empresa" />
+        </EntityContainer>
+        <EntityType Name="rc_EmpresaUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <Property Name="activo" Type="Int32" Nullable="false" />
+          <Property Name="usuarioCarga" Type="Int32" Nullable="false" />
+          <Property Name="fechaAlta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="fechaBaja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Id_rol" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_Especialidades">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cod" Type="Int32" />
+          <Property Name="Especialidad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tb_SubEspecialidades">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Especialidad" Type="Int32" />
+          <Property Name="CodSubEsp" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="SubEspecialidad" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="rc_Empresa">
+          <Key>
+            <PropertyRef Name="idEmpresa" />
+          </Key>
+          <Property Name="idEmpresa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cuit" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="nro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="razonSocial" Type="String" Nullable="false" MaxLength="55" FixedLength="false" Unicode="false" />
+          <Property Name="ingresosBrutos" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="inscripcionIERIC" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="inscConsejoNro" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="inscConsejoFecha" Type="DateTime" />
+          <Property Name="domicilioReal" Type="String" Nullable="false" MaxLength="55" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="esMendocina" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="inscRegSocietario" Type="DateTime" Nullable="false" />
+          <Property Name="domicilioEspecial" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
+          <Property Name="telefonoEspecial" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="mailEspecial" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="nomApeContacto" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="telefonoContacto" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="mailContacto" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="passTokenRecovery" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_RACOPModelStoreContainer" CdmEntityContainer="DB_RACOPEntities">
+        <EntitySetMapping Name="rc_EmpresaUser">
+            <EntityTypeMapping TypeName="DB_RACOPModel.rc_EmpresaUser">
+              <MappingFragment StoreEntitySet="rc_EmpresaUser">
+                <ScalarProperty Name="Id_rol" ColumnName="Id_rol" />
+                <ScalarProperty Name="fechaBaja" ColumnName="fechaBaja" />
+                <ScalarProperty Name="fechaAlta" ColumnName="fechaAlta" />
+                <ScalarProperty Name="usuarioCarga" ColumnName="usuarioCarga" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="idEmpresa" ColumnName="idEmpresa" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Especialidades">
+            <EntityTypeMapping TypeName="DB_RACOPModel.tb_Especialidades">
+              <MappingFragment StoreEntitySet="tb_Especialidades">
+                <ScalarProperty Name="Especialidad" ColumnName="Especialidad" />
+                <ScalarProperty Name="Cod" ColumnName="Cod" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_SubEspecialidades">
+            <EntityTypeMapping TypeName="DB_RACOPModel.tb_SubEspecialidades">
+              <MappingFragment StoreEntitySet="tb_SubEspecialidades">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="SubEspecialidad" ColumnName="SubEspecialidad" />
+                <ScalarProperty Name="CodSubEsp" ColumnName="CodSubEsp" />
+                <ScalarProperty Name="Especialidad" ColumnName="Especialidad" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rc_Empresa">
+            <EntityTypeMapping TypeName="DB_RACOPModel.rc_Empresa">
+              <MappingFragment StoreEntitySet="rc_Empresa">
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="passTokenRecovery" ColumnName="passTokenRecovery" />
+                <ScalarProperty Name="mailContacto" ColumnName="mailContacto" />
+                <ScalarProperty Name="telefonoContacto" ColumnName="telefonoContacto" />
+                <ScalarProperty Name="nomApeContacto" ColumnName="nomApeContacto" />
+                <ScalarProperty Name="mailEspecial" ColumnName="mailEspecial" />
+                <ScalarProperty Name="telefonoEspecial" ColumnName="telefonoEspecial" />
+                <ScalarProperty Name="domicilioEspecial" ColumnName="domicilioEspecial" />
+                <ScalarProperty Name="inscRegSocietario" ColumnName="inscRegSocietario" />
+                <ScalarProperty Name="esMendocina" ColumnName="esMendocina" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="domicilioReal" ColumnName="domicilioReal" />
+                <ScalarProperty Name="inscConsejoFecha" ColumnName="inscConsejoFecha" />
+                <ScalarProperty Name="inscConsejoNro" ColumnName="inscConsejoNro" />
+                <ScalarProperty Name="inscripcionIERIC" ColumnName="inscripcionIERIC" />
+                <ScalarProperty Name="ingresosBrutos" ColumnName="ingresosBrutos" />
+                <ScalarProperty Name="razonSocial" ColumnName="razonSocial" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="nro" ColumnName="nro" />
+                <ScalarProperty Name="cuit" ColumnName="cuit" />
+                <ScalarProperty Name="idEmpresa" ColumnName="idEmpresa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,109 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Repositorio\\Licitaciones\\Scr\\BuhoLicitaciones\\Licitaciones.Servicio\\Licitaciones.Servicio.csproj": {}
+  },
+  "projects": {
+    "C:\\Repositorio\\Licitaciones\\Scr\\BuhoLicitaciones\\Licitaciones.BaseDato\\Licitaciones.BasesDatos.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Repositorio\\Licitaciones\\Scr\\BuhoLicitaciones\\Licitaciones.BaseDato\\Licitaciones.BasesDatos.csproj",
+        "projectName": "Licitaciones.BasesDatos",
+        "projectPath": "C:\\Repositorio\\Licitaciones\\Scr\\BuhoLicitaciones\\Licitaciones.BaseDato\\Licitaciones.BasesDatos.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "C:\\Repositorio\\Licitaciones\\Scr\\BuhoLicitaciones\\Licitaciones.Servicio\\Licitaciones.Servicio.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Repositorio\\Licitaciones\\Scr\\BuhoLicitaciones\\Licitaciones.Servicio\\Licitaciones.Servicio.csproj",
+        "projectName": "Licitaciones.Servicio",
+        "projectPath": "C:\\Repositorio\\Licitaciones\\Scr\\BuhoLicitaciones\\Licitaciones.Servicio\\Licitaciones.Servicio.csproj",
+        "packagesPath": "C:\\Users\\omar.hadac\\.nuget\\packages\\",
+        "outputPath": "C:\\Repositorio\\Licitaciones\\Scr\\BuhoLicitaciones\\Licitaciones.Servicio\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\omar.hadac\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Repositorio\\Licitaciones\\Scr\\BuhoLicitaciones\\Licitaciones.BaseDato\\Licitaciones.BasesDatos.csproj": {
+                "projectPath": "C:\\Repositorio\\Licitaciones\\Scr\\BuhoLicitaciones\\Licitaciones.BaseDato\\Licitaciones.BasesDatos.csproj"
+              },
+              "C:\\Repositorio\\Licitaciones\\Scr\\BuhoLicitaciones\\Licitaciones.ViewModels\\Licitaciones.ViewModels.csproj": {
+                "projectPath": "C:\\Repositorio\\Licitaciones\\Scr\\BuhoLicitaciones\\Licitaciones.ViewModels\\Licitaciones.ViewModels.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "EntityFramework": {
+              "target": "Package",
+              "version": "[6.4.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Repositorio\\Licitaciones\\Scr\\BuhoLicitaciones\\Licitaciones.ViewModels\\Licitaciones.ViewModels.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Repositorio\\Licitaciones\\Scr\\BuhoLicitaciones\\Licitaciones.ViewModels\\Licitaciones.ViewModels.csproj",
+        "projectName": "Licitaciones.ViewModels",
+        "projectPath": "C:\\Repositorio\\Licitaciones\\Scr\\BuhoLicitaciones\\Licitaciones.ViewModels\\Licitaciones.ViewModels.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    }
+  }
+}
